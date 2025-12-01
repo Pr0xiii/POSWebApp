@@ -1,0 +1,36 @@
+﻿@page "/products"
+@model PointOfSalesWebApplication.Pages.ProductsModel
+
+<a asp-page="/ProductView" class="btn btn-success">Create New Product</a>
+<table class="products-table" style="width:100%">
+    <tr>
+        <th>Product Name</th>
+        <th>Cost Price</th>
+        <th>Sale Price</th>
+        <th>Published</th>
+        <th>Edit Product</th>
+        <th>Delete Product</th>
+    </tr>
+    @foreach (var product in Model.Products)
+    {
+        <tr class="item">
+            <td>@product.Name</td>
+            <td>@product.CostPrice</td>
+            <td>@product.SalePrice</td>
+            <td>@product.IsPublished</td>
+            <td>
+                <a asp-page="/ProductView" asp-route-productID="@product.ID" class="btn btn-info">Edit</a>
+            </td>
+            <td>
+                <form method="post" asp-page-handler="Delete" class="d-inline">
+                    <input type="hidden" name="productID" value="@product.ID" />
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+
+@{
+
+}
