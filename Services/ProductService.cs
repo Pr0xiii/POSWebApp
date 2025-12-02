@@ -11,14 +11,16 @@ namespace PointOfSalesWebApplication.Services
                 ID = 0,
                 Name = "Apple",
                 CostPrice = 0.53,
-                SalePrice = 1.20
+                SalePrice = 1.20,
+                CanBeSold = true
             },
             new Product
             {
                 ID = 1,
                 Name = "Pizza",
                 CostPrice = 3.145,
-                SalePrice = 5.99
+                SalePrice = 5.99,
+                CanBeSold = false
             }
         };
 
@@ -47,7 +49,7 @@ namespace PointOfSalesWebApplication.Services
                 existing.Name = product.Name;
                 existing.CostPrice = product.CostPrice;
                 existing.SalePrice = product.SalePrice;
-                existing.IsPublished = product.IsPublished;
+                existing.CanBeSold = product.CanBeSold;
             }
             else
             {

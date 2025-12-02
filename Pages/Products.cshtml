@@ -1,13 +1,29 @@
 ﻿@page "/products"
 @model PointOfSalesWebApplication.Pages.ProductsModel
 
-<a asp-page="/ProductView" class="btn btn-success">Create New Product</a>
-<table class="products-table" style="width:100%">
+<div class="page-nav">
+    <a asp-page="/ProductView" class="btn btn-primary">Create New Product</a>
+    <form>
+        <span class="bi bi-search"></span>
+        <input type="text" placeholder="Search by Name" />
+    </form>
+    <form>
+        <label>Filter by:</label>
+        <select>
+            <option>Can be sold</option>
+        </select>
+        <label>Group by:</label>
+        <select>
+            <option>Can be sold</option>
+        </select>
+    </form>
+</div>
+<table class="table table-striped table-hover" style="width:100%">
     <tr>
         <th>Product Name</th>
         <th>Cost Price</th>
         <th>Sale Price</th>
-        <th>Published</th>
+        <th>Can be sold</th>
         <th>Edit Product</th>
         <th>Delete Product</th>
     </tr>
@@ -17,7 +33,7 @@
             <td>@product.Name</td>
             <td>@product.CostPrice</td>
             <td>@product.SalePrice</td>
-            <td>@product.IsPublished</td>
+            <td>@product.CanBeSold</td>
             <td>
                 <a asp-page="/ProductView" asp-route-productID="@product.ID" class="btn btn-info">Edit</a>
             </td>
