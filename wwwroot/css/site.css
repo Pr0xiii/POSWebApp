@@ -65,16 +65,23 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
 }
-
+div.table-container{  
+  overflow-x: auto;
+}
+table 
+{
+  width: 100%;
+  text-align: left;
+  vertical-align: middle;
+  border-collapse: collapse;
+}
 tr {
     border-color: midnightblue;
     border: solid 1px;
 }
 td, th {
-    padding: 5px;
-}
-.item {
-    padding-left: 10px;
-    background-color: lightblue;
+  text-align: left;
+  vertical-align: middle;
 }

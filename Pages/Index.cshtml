@@ -9,18 +9,23 @@
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <div class="container-apps">
         <div class="row" id="apps-row">
-            <div class="col-sm-4 app-item" draggable="true" data-id="1">
+            <div class="col app-item" draggable="true" data-id="1">
                 <a class="btn app-item-btn" asp-page="products">
                     <span class="bi bi-box-fill"></span> Products
                 </a>
             </div>
-            <div class="col-sm-4 app-item" draggable="true" data-id="2">
+            <div class="col app-item" draggable="true" data-id="2">
                 <a class="btn app-item-btn">
                     <span class="bi bi-person-video"></span> Clients
                 </a>
             </div>
 
-            <div class="col-sm-4 app-item" draggable="true" data-id="3">
+            <div class="col app-item" draggable="true" data-id="3">
+                <a class="btn app-item-btn">
+                    <span class="bi bi-gear"></span> Settings
+                </a>
+            </div>
+            <div class="col app-item" draggable="true" data-id="3">
                 <a class="btn app-item-btn">
                     <span class="bi bi-gear"></span> Settings
                 </a>
@@ -28,3 +33,58 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('apps-row');
+  let dragged = null;
+
+  // dragstart / dragend au container (délégué)
+  container.addEventListener('dragstart', (e) => {
+    const item = e.target.closest('.app-item');
+    if (!item) return;
+    dragged = item;
+    item.classList.add('dragging');
+    // nécessaire pour Firefox
+    try { e.dataTransfer.setData('text/plain', item.dataset.id || ''); } catch (err) {}
+    e.dataTransfer.effectAllowed = 'move';
+  });
+
+  container.addEventListener('dragend', () => {
+    if (dragged) dragged.classList.remove('dragging');
+    dragged = null;
+  });
+
+  container.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    const after = getDragAfterElement(container, e.clientX);
+    if (!dragged) return;
+    if (after == null) container.appendChild(dragged);
+    else container.insertBefore(dragged, after);
+  });
+
+  container.addEventListener('drop', (e) => {
+    e.preventDefault();
+    // Optionnel : sauvegarder l'ordre
+    const order = Array.from(container.querySelectorAll('.app-item'))
+                       .map(el => el.dataset.id);
+    console.log('Nouvel ordre :', order);
+  });
+
+  function getDragAfterElement(container, x) {
+    const draggableElements = [...container.querySelectorAll('.app-item:not(.dragging)')];
+    let closest = null;
+    let closestOffset = Number.NEGATIVE_INFINITY;
+    for (const child of draggableElements) {
+      const box = child.getBoundingClientRect();
+      const offset = x - (box.left + box.width / 2);
+      // on veut le premier enfant dont centre est à droite du curseur (offset < 0)
+      if (offset < 0 && offset > closestOffset) {
+        closestOffset = offset;
+        closest = child;
+      }
+    }
+    return closest;
+  }
+});
+</script>
