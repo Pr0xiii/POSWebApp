@@ -1,0 +1,50 @@
+@page "/clients"
+@model PointOfSalesWebApplication.Pages.ClientsModel
+
+<div class="page-nav">
+    <a asp-page="/Clients/ClientView" class="btn btn-primary">Create New Client</a>
+    <form method="get">
+        <input type="text" name="SearchString" value="@Model.SearchString" placeholder="Search by Name..." />
+        <button type="submit" class="btn btn-basic">
+            <span class="bi bi-search"></span>Search
+        </button>
+    </form>
+    <form method="get">
+        <label>Sort by:</label>
+        <select asp-for="SortString" asp-items="Model.SortOptions" class="form-select"
+                onchange="this.form.submit()"></select>
+    </form>
+</div>
+<div class="table-container">
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+            <th>Edit Client</th>
+            <th>Delete Client</th>
+        </tr>
+        @foreach (var client in Model.Clients)
+        {
+            <tr class="item">
+                <td>@client.Name</td>
+                <td>@client.Email</td>
+                <td>@client.PhoneNumber</td>
+                <td>@client.Address</td>
+                <td>
+                    <a asp-page="/Clients/ClientView" asp-route-clientID="@client.ID" class="btn btn-info">Edit</a>
+                </td>
+                <td>
+                    <form method="post" asp-page-handler="Delete" class="d-inline">
+                        <input type="hidden" name="clientID" value="@client.ID" />
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+@{
+
+}

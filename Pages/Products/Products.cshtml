@@ -2,7 +2,7 @@
 @model PointOfSalesWebApplication.Pages.ProductsModel
 
 <div class="page-nav">
-    <a asp-page="/ProductView" class="btn btn-primary">Create New Product</a>
+    <a asp-page="/Products/ProductView" class="btn btn-primary">Create New Product</a>
     <form method="get">
         <input type="text" name="SearchString" value="@Model.SearchString" placeholder="Search by Name..." />
         <button type="submit" class="btn btn-basic">
@@ -45,7 +45,7 @@
                     }
                 </td>
                 <td>
-                    <a asp-page="/ProductView" asp-route-productID="@product.ID" class="btn btn-info">Edit</a>
+                    <a asp-page="/Products/ProductView" asp-route-productID="@product.ID" class="btn btn-info">Edit</a>
                 </td>
                 <td>
                     <form method="post" asp-page-handler="Delete" class="d-inline">

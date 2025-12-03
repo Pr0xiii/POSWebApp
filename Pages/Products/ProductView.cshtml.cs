@@ -29,7 +29,7 @@ namespace PointOfSalesWebApplication.Pages
             Product = _productService.GetProductById(productID);
             if (Product == null)
             {
-                return RedirectToPage("/Products");
+                return RedirectToPage("/Products/Products");
             }
 
             return Page();
@@ -42,7 +42,7 @@ namespace PointOfSalesWebApplication.Pages
 
             Console.WriteLine(Product.ID);
             _productService.UpdateProduct(Product);
-            return RedirectToPage("/Products");
+            return RedirectToPage("/Products/Products");
         }
     }
 }

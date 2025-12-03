@@ -18,6 +18,14 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /workspaces/POSWebApp
 build_property._RazorSourceGeneratorDebug = 
 
+[/workspaces/POSWebApp/Pages/Clients/Clients.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ2xpZW50cy9DbGllbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/workspaces/POSWebApp/Pages/Clients/ClientView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ2xpZW50cy9DbGllbnRWaWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/workspaces/POSWebApp/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -30,12 +38,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/workspaces/POSWebApp/Pages/Products.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZHVjdHMuY3NodG1s
+[/workspaces/POSWebApp/Pages/Products/Products.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZHVjdHMvUHJvZHVjdHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/workspaces/POSWebApp/Pages/ProductView.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZHVjdFZpZXcuY3NodG1s
+[/workspaces/POSWebApp/Pages/Products/ProductView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZHVjdHMvUHJvZHVjdFZpZXcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/workspaces/POSWebApp/Pages/Shared/_ValidationScriptsPartial.cshtml]

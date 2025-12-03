@@ -9,20 +9,19 @@
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <div class="container-apps">
         <div class="row" id="apps-row">
+            <div class="col app-item" draggable="true" data-id="3">
+                <a class="btn app-item-btn">
+                    <span class="bi bi-shop"></span> POS
+                </a>
+            </div>
             <div class="col app-item" draggable="true" data-id="1">
-                <a class="btn app-item-btn" asp-page="products">
+                <a class="btn app-item-btn" asp-page="Products/products">
                     <span class="bi bi-box-fill"></span> Products
                 </a>
             </div>
             <div class="col app-item" draggable="true" data-id="2">
-                <a class="btn app-item-btn">
+                <a class="btn app-item-btn" asp-page="Clients/Clients">
                     <span class="bi bi-person-video"></span> Clients
-                </a>
-            </div>
-
-            <div class="col app-item" draggable="true" data-id="3">
-                <a class="btn app-item-btn">
-                    <span class="bi bi-gear"></span> Settings
                 </a>
             </div>
             <div class="col app-item" draggable="true" data-id="3">
