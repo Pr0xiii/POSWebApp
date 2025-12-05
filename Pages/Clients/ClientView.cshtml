@@ -1,24 +1,40 @@
 @page "/clients/view/{clientID?}"
-@model PointOfSalesWebApplication.Pages.ClientViewModel
+@model PointOfSalesWebApplication.Pages.Clients.ClientViewModel
 
 <form method="post" valid>
     <input type="hidden" asp-for="Client.ID" />
+    <div class="header-btns">
+        <a class="btn btn-default" asp-page="/Clients/Clients">Back</a>
+        <input type="submit" value="Save" class="btn btn-primary"/>
+    </div>
 
-    <label asp-for="Client.Name">Name:</label>
-    <input type="text" asp-for="Client.Name" />
-    <span asp-validation-for="Client.Name" class="text-danger"></span>
+    <div class="header-title">
+        <label asp-for="Client.Name">Name</label>
+        <input type="text" asp-for="Client.Name" />
+        <span asp-validation-for="Client.Name" class="text-danger"></span>
+    </div>
 
-    <label asp-for="Client.Email">Email:</label>
-    <input asp-for="Client.Email" type="text" />
-    <span asp-validation-for="Client.Email" class="text-danger"></span>
+    <div class="notebook-container">
+        <div class="col-sm-6 notebook">
+            <div class="notebook-item">
+                <label asp-for="Client.Address">Address</label>
+                <input asp-for="Client.Address" type="text" />
+            </div>
+        </div>
 
-    <label asp-for="Client.Address">Address:</label>
-    <input asp-for="Client.Address" type="text" />
-
-    <label asp-for="Client.PhoneNumber">Phone Number:</label>
-    <input asp-for="Client.PhoneNumber" type="text" />
-    <span asp-validation-for="Client.PhoneNumber" class="text-danger"></span>
-    <input type="submit" value="Save" />
+        <div class="col-sm-6 notebook">
+            <div class="notebook-item">
+                <label asp-for="Client.Email">Email</label>
+                <input asp-for="Client.Email" type="text" />
+                <span asp-validation-for="Client.Email" class="text-danger"></span>
+            </div>
+            <div class="notebook-item">
+                <label asp-for="Client.PhoneNumber">Phone Number</label>
+                <input asp-for="Client.PhoneNumber" type="text" />
+                <span asp-validation-for="Client.PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
 </form>
 
 <h4>Sales</h4>

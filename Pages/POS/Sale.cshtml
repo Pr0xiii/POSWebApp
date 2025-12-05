@@ -4,27 +4,31 @@
 <div class="header">
     <h1>@Model.CurrentSale.Name</h1>
 <div>
-<div>
-    <form method="get">
-        <input type="hidden" name="saleID" value="@Model.CurrentSale.ID" />
-        <label>Sort by:</label>
-        <select asp-for="ClientString" asp-items="Model.ClientOptions" class="form-select"
-                onchange="this.form.submit()"></select>
-    </form>
-    @if(@Model.CurrentSale.Client != null) { 
-        <p>Facturation address : @Model.CurrentSale.Client.Address</p> 
-        <p>Delivery address : @Model.CurrentSale.Client.Address</p>
-    }
-    else { 
-        <p>Facturation address :</p> 
-        <p>Delivery address :</p> 
-    }
-    <p>Date of sale: @Model.CurrentSale.SaleDate</p> 
+<div class="notebook-container">
+    <div class="col-sm-6 notebook">
+        <form method="get">
+            <input type="hidden" name="saleID" value="@Model.CurrentSale.ID" />
+            <label asp-for="ClientString">Client</label>
+            <select asp-for="ClientString" asp-items="Model.ClientOptions" class="form-select"
+                    onchange="this.form.submit()"></select>
+        </form>
+        @if(@Model.CurrentSale.Client != null) { 
+            <p>Facturation address : @Model.CurrentSale.Client.Address</p> 
+            <p>Delivery address : @Model.CurrentSale.Client.Address</p>
+        }
+        else { 
+            <p>Facturation address :</p> 
+            <p>Delivery address :</p> 
+        }
+    </div>
+    <div class="col-sm-6 notebook">
+        <p>Date of sale: @Model.CurrentSale.SaleDate</p>
+    </div>
 </div>
-<div class="row">
-    <div class="col-sm-6">
+<div class="pos-layout">
+    <div class="sale-table-container col-sm-6">
         <!-- Liste des produits achetés -->
-        <table class="table table-striped table-hover">
+        <table class="table">
             <tr>
                 <th>Product</th>
                 <th>Unit Price</th>
@@ -46,22 +50,26 @@
         <!-- Liste de tous les produits du magasin -->
         @foreach(var product in Model.Products) 
         {
-            <div class="product-item">
-                <form method="post" asp-page-handler="AddProduct">
-                    <input type="hidden" name="saleID" value="@Model.CurrentSale.ID" />
-                    <input type="hidden" name="productID" value="@product.ID" />
-                    <input type="hidden" name="qty" value="1" />
-                    <button type="submit" class="btn btn-default">
-                        <span class="bi bi-card-image"></span>
-                        <p>@product.Name</p>
-                        <p>@product.SalePrice</p>
-                    </button>
-                </form>
-            </div>
+            <form method="post" asp-page-handler="AddProduct" class="product-card">
+                <input type="hidden" name="saleID" value="@Model.CurrentSale.ID" />
+                <input type="hidden" name="productID" value="@product.ID" />
+                <input type="hidden" name="qty" value="1" />
+
+                <button type="submit" class="product-button">
+                    <div class="product-image-wrapper">
+                        <span class="bi bi-card-image product-image"></span>
+                    </div>
+
+                    <div class="product-info">
+                        <p class="product-name">@product.Name</p>
+                        <p class="product-price">@product.SalePrice €</p>
+                    </div>
+                </button>
+            </form>
         }
     </div>
-<div>
-<div class="footer">
+</div>
+<div class="footer col-sm-6">
     <form method="post" asp-page-handler="FinalizeSale">
         <input type="hidden" name="saleID" value="@Model.CurrentSale.ID" />
         <input type="hidden" name="clientID" value="@Model.CurrentSale.ClientID" />

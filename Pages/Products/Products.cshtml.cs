@@ -5,7 +5,7 @@ using PointOfSalesWebApplication.Services;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace PointOfSalesWebApplication.Pages
+namespace PointOfSalesWebApplication.Pages.Products
 {
     public class ProductsModel : PageModel
     {

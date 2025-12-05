@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using PointOfSalesWebApplication.Models;
 using PointOfSalesWebApplication.Services;
 
-namespace PointOfSalesWebApplication.Pages
+namespace PointOfSalesWebApplication.Pages.Clients
 {
     public class ClientViewModel : PageModel
     {
