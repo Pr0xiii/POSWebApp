@@ -21,5 +21,24 @@
     <input type="submit" value="Save" />
 </form>
 
+<h4>Sales</h4>
+<table class="table table-striped table-hover">
+    <tr>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Total</th>
+    </tr>
+    @foreach(var sale in @Model.Client.Sales) 
+    {
+        <tr>
+            <th>@sale.Name</th>
+            <th>@sale.SaleDate</th>
+            <th>@sale.Status</th>
+            <th>@sale.TotalCost</th>
+        </tr>
+    }
+<table>
+
 @{
 }

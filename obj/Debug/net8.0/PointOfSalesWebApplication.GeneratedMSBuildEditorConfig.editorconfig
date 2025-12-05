@@ -34,6 +34,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/workspaces/POSWebApp/Pages/POS/Sale.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUE9TL1NhbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/workspaces/POSWebApp/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

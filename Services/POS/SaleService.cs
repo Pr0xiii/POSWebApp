@@ -4,28 +4,130 @@ namespace PointOfSalesWebApplication.Services
 {
     public class SaleService : ISaleService
     {
-        private static List<Sale> _sales = new List<Sale>();
+        private static List<Sale> _sales = new();
+        private readonly IProductService _productService;
+        private readonly IClientService _clientService;
 
-        public int GenerateSaleID() 
+        public SaleService(IProductService productService, IClientService clientService) 
         {
-            if(_sales.Count == 0) 
+            _productService = productService;
+            _clientService = clientService;
+        }
+
+        public Sale? CreateSale(int? clientID = null) 
+        {
+            int newId = GenerateSaleId();
+
+            var newSale = new Sale 
             {
-                return 1;
-            }
-            else {
-                int maxID = _sales.Max(x => x.ID);
-                return maxID + 1;
-            }
+                ID = newId,
+                Name = GenerateSaleName(newId),
+                ClientID = clientID,
+                Client = _clientService.GetClientById(clientID)
+            };
+            
+            _sales.Add(newSale);
+            return newSale;
+        }
+        public Sale GetSaleById(int saleID) 
+        {
+            return _sales.FirstOrDefault(x => x.ID == saleID);
         }
 
-        public string GenerateSaleName(int id) 
+        public void AddProduct(int saleID, int productID, int qty = 1) 
         {
-            return $"Sale-{DateTime.Today.ToString("d")}{id}"
+            var sale = GetSaleById(saleID);
+            var product = _productService.GetProductById(productID);
+
+            var line = sale.Lines.FirstOrDefault(x => x.ProductID == productID);
+            if(line == null) 
+            {
+                sale.Lines.Add(new SaleLine 
+                {
+                    ProductID = productID,
+                    Product = product,
+                    Quantity = qty,
+                    UnitPrice = product.SalePrice
+                });
+            }
+            else 
+            {
+                line.Quantity += qty;
+            }
+
+            CalculateTotalCost(saleID);
         }
-        public List<Product> GetAllSaleProducts();
-        public Client SetSaleClient(int id);
-        public void UpdateSale(Product product);
-        public void CalculateSalePrice();
-        public void GenerateSale();
+        public void RemoveProduct(int saleID, int productID, int qty = 1) 
+        {
+            var sale = GetSaleById(saleID);
+            var product = _productService.GetProductById(productID);
+
+            var line = sale.Lines.FirstOrDefault(x => x.ProductID == productID);
+
+            if(line == null) return;
+
+            if(line.Quantity == qty) 
+            {
+                sale.Lines.Remove(line);
+            }
+            else 
+            {
+                line.Quantity -= qty;
+            }
+
+            CalculateTotalCost(saleID);
+        }
+        public void UpdateQuantity(int saleID, int productID, int qty) 
+        {
+            var sale = GetSaleById(saleID);
+            var product = _productService.GetProductById(productID);
+
+            var line = sale.Lines.FirstOrDefault(x => x.ProductID == productID);
+
+            if(line != null) {
+                line.Quantity += qty;
+            }
+
+            CalculateTotalCost(saleID);
+        }
+
+        public void SetClient(int saleID, int clientID) 
+        {
+            var sale = GetSaleById(saleID);
+            var client = _clientService.GetClientById(clientID);
+
+            sale.ClientID = clientID;
+            sale.Client = client;
+        }
+
+        public void CalculateTotalCost(int saleID) 
+        {
+            var sale = GetSaleById(saleID);
+            sale.TotalCost = sale.Lines.Sum(x => x.TotalPrice);
+        }
+
+        public void FinalizeSale(int saleID, int clientID) 
+        {
+            var sale = GetSaleById(saleID);
+            var client = _clientService.GetClientById(clientID);
+
+            if(client != null) 
+            {
+                _clientService.AddSale(clientID, sale);
+            }
+
+            sale.Status = SaleStatus.Paid;
+        }
+
+        private int GenerateSaleId() 
+        {
+            if(_sales.Count == 0) return 1;
+
+            return _sales.Max(x => x.ID) + 1;
+        }
+        private string GenerateSaleName(int id) 
+        {
+            return $"Sale-{DateTime.Today:yyyy-MM-dd}-{id}";
+        }
     }
 }

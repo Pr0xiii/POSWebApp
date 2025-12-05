@@ -9,5 +9,8 @@ namespace PointOfSalesWebApplication.Services
         public void UpdateClient(Person client);
         public void DeleteClient(int id);
         public int GetRandomID();
+
+        public List<Sale> GetAllSales(int clientID);
+        public void AddSale(int clientID, Sale sale);
     }
 }

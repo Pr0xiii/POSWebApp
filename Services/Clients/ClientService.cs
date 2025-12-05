@@ -59,5 +59,22 @@ namespace PointOfSalesWebApplication.Services
             int maxID = GetAllClients().Max(x => x.ID);
             return maxID + 1;
         }
+
+        public List<Sale> GetAllSales(int clientID) 
+        { 
+            var client = GetClientById(clientID);
+            return client.Sales;
+        }
+        
+        public void AddSale(int clientID, Sale sale) 
+        {
+            var client = GetClientById(clientID);
+            if(client == null) return;
+
+            if(sale.ClientID == clientID) 
+            {
+                client.Sales.Add(sale);
+            }
+        }
     }
 }

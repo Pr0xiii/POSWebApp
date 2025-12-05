@@ -85,3 +85,18 @@ td, th {
   text-align: left;
   vertical-align: middle;
 }
+
+div.sale-products-container 
+{
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  background-color: lightblue;
+  border-radius: 25px;
+}
+.product-item {
+  margin: 10px;
+  background-color: white;
+  text-align: left;
+  border-radius: 15px;
+}
