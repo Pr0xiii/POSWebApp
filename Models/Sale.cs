@@ -13,7 +13,7 @@ namespace PointOfSalesWebApplication.Models
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public DateTime SaleDate { get; set; } = DateTime.Today;
+        public DateTime SaleDate { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Local);
 
         public int? ClientID { get; set; }
         public Person? Client { get; set; }

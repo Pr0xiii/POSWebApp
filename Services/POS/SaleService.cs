@@ -7,6 +7,7 @@ namespace PointOfSalesWebApplication.Services
         private static List<Sale> _sales = new();
         private readonly IProductService _productService;
         private readonly IClientService _clientService;
+        private readonly Random _rand = new Random();
 
         public SaleService(IProductService productService, IClientService clientService) 
         {
@@ -119,15 +120,21 @@ namespace PointOfSalesWebApplication.Services
             sale.Status = SaleStatus.Paid;
         }
 
-        private int GenerateSaleId() 
+        private int GenerateSaleId()
         {
-            if(_sales.Count == 0) return 1;
+            int id;
 
-            return _sales.Max(x => x.ID) + 1;
+            do
+            {
+                id = _rand.Next(1000, 10000); // 1000–9999
+            }
+            while (_sales.Any(s => s.ID == id));
+
+            return id;
         }
         private string GenerateSaleName(int id) 
         {
-            return $"Sale-{DateTime.Today:yyyy-MM-dd}-{id}";
+            return $"SO{DateTime.Today:yyMM}{id}";
         }
     }
 }

@@ -81,6 +81,7 @@ namespace PointOfSalesWebApplication.Pages.POS
         public IActionResult OnPostFinalizeSale(int saleID, int clientID) 
         {
             _saleService.FinalizeSale(saleID, clientID);
+            TempData["ShowPaymentModal"] = true;
             return RedirectToPage();
         }
     }
