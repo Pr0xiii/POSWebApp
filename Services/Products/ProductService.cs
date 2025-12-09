@@ -1,9 +1,13 @@
-﻿using PointOfSalesWebApplication.Models;
+﻿using PointOfSalesWebApplication.Data;
+using PointOfSalesWebApplication.Models;
 
 namespace PointOfSalesWebApplication.Services
 {
     public class ProductService : IProductService
     {
+        private readonly PosContext _context;
+        private readonly Random _rand = new Random();
+
         private static List<Product> _products = new()
         {
             new Product
@@ -24,26 +28,32 @@ namespace PointOfSalesWebApplication.Services
             }
         };
 
+        public ProductService(PosContext productContext)
+        {
+            _context = productContext;
+        }
+
         public void DeleteProduct(int id)
         {
             Product? product = GetProductById(id);
             if (product != null)
-                _products.Remove(product);
+                _context.Products.Remove(product);
+            _context.SaveChanges();
         }
 
         public List<Product> GetAllProducts()
         {
-            return _products;
+            return _context.Products.ToList();
         }
 
         public Product? GetProductById(int? id)
         {
-            return _products.FirstOrDefault(x => x.ID == id);
+            return GetAllProducts().FirstOrDefault(x => x.ID == id);
         }
 
         public void UpdateProduct(Product product)
         {
-            var existing = _products.FirstOrDefault(p => p.ID == product.ID);
+            var existing = GetAllProducts().FirstOrDefault(p => p.ID == product.ID);
             if (existing != null)
             {
                 existing.Name = product.Name;
@@ -53,14 +63,23 @@ namespace PointOfSalesWebApplication.Services
             }
             else
             {
-                _products.Add(product);
+                _context.Products.Add(product);
             }
+
+            _context.SaveChanges();
         }
 
         public int GetRandomID()
         {
-            int maxID = GetAllProducts().Max(x => x.ID);
-            return maxID + 1;
+            int id;
+
+            do
+            {
+                id = _rand.Next(1000, 10000); // 1000–9999
+            }
+            while (GetAllProducts().Any(s => s.ID == id));
+
+            return id;
         }
     }
 }

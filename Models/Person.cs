@@ -21,6 +21,6 @@ namespace PointOfSalesWebApplication.Models
         [Phone(ErrorMessage = "Please enter a valid phone number.")]
         public string? PhoneNumber { get; set; }
 
-        public List<Sale> Sales { get; set; } = new();
+        public List<Sale> Sales { get; set; }
     }
 }

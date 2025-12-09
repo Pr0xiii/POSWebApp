@@ -4,6 +4,7 @@ using PointOfSalesWebApplication.Models;
 using PointOfSalesWebApplication.Services;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace PointOfSalesWebApplication.Pages.Clients
 {
@@ -32,6 +33,8 @@ namespace PointOfSalesWebApplication.Pages.Clients
         public IActionResult OnGet() 
         {
             var _clients = _clientService.GetAllClients().AsQueryable();
+
+            if (_clients == null) return Page();
 
             if(!string.IsNullOrWhiteSpace(SearchString)) 
             {

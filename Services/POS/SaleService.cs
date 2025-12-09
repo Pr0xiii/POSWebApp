@@ -1,16 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using PointOfSalesWebApplication.Data;
 using PointOfSalesWebApplication.Models;
 
 namespace PointOfSalesWebApplication.Services
 {
     public class SaleService : ISaleService
     {
+        private readonly PosContext _context;
         private static List<Sale> _sales = new();
         private readonly IProductService _productService;
         private readonly IClientService _clientService;
         private readonly Random _rand = new Random();
 
-        public SaleService(IProductService productService, IClientService clientService) 
+        public SaleService(PosContext context, IProductService productService, IClientService clientService) 
         {
+            _context = context;
             _productService = productService;
             _clientService = clientService;
         }
@@ -27,12 +31,17 @@ namespace PointOfSalesWebApplication.Services
                 Client = _clientService.GetClientById(clientID)
             };
             
-            _sales.Add(newSale);
+            _context.Sales.Add(newSale);
+            _context.SaveChanges();
+
             return newSale;
         }
         public Sale GetSaleById(int saleID) 
         {
-            return _sales.FirstOrDefault(x => x.ID == saleID);
+            return _context.Sales
+                .Include(s => s.Lines)
+                .ThenInclude(l => l.Product)
+                .FirstOrDefault(s => s.ID == saleID);
         }
 
         public void AddProduct(int saleID, int productID, int qty = 1) 
@@ -45,6 +54,8 @@ namespace PointOfSalesWebApplication.Services
             {
                 sale.Lines.Add(new SaleLine 
                 {
+                    SaleID = saleID,
+                    Sale = sale,
                     ProductID = productID,
                     Product = product,
                     Quantity = qty,
@@ -57,6 +68,7 @@ namespace PointOfSalesWebApplication.Services
             }
 
             CalculateTotalCost(saleID);
+            _context.SaveChanges();
         }
         public void RemoveProduct(int saleID, int productID, int qty = 1) 
         {
@@ -77,6 +89,7 @@ namespace PointOfSalesWebApplication.Services
             }
 
             CalculateTotalCost(saleID);
+            _context.SaveChanges();
         }
         public void UpdateQuantity(int saleID, int productID, int qty) 
         {
@@ -87,6 +100,7 @@ namespace PointOfSalesWebApplication.Services
 
             if(line != null) {
                 line.Quantity += qty;
+                _context.SaveChanges();
             }
 
             CalculateTotalCost(saleID);
@@ -99,6 +113,8 @@ namespace PointOfSalesWebApplication.Services
 
             sale.ClientID = clientID;
             sale.Client = client;
+
+            _context.SaveChanges();
         }
 
         public void CalculateTotalCost(int saleID) 
@@ -118,6 +134,7 @@ namespace PointOfSalesWebApplication.Services
             }
 
             sale.Status = SaleStatus.Paid;
+            _context.SaveChanges();
         }
 
         private int GenerateSaleId()

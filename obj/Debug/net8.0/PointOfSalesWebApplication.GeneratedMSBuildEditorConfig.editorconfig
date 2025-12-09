@@ -1,67 +1,77 @@
 is_global = true
 build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = PointOfSalesWebApplication
 build_property.RootNamespace = PointOfSalesWebApplication
-build_property.ProjectDir = /workspaces/POSWebApp/
+build_property.ProjectDir = C:\Users\jolan\OneDrive\Documents\PointOfSalesWebApp\POSWebApp\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /workspaces/POSWebApp
+build_property.MSBuildProjectDirectory = C:\Users\jolan\OneDrive\Documents\PointOfSalesWebApp\POSWebApp
 build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
 
-[/workspaces/POSWebApp/Pages/Clients/Clients.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ2xpZW50cy9DbGllbnRzLmNzaHRtbA==
+[C:/Users/jolan/OneDrive/Documents/PointOfSalesWebApp/POSWebApp/Pages/Clients/Clients.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50c1xDbGllbnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/workspaces/POSWebApp/Pages/Clients/ClientView.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ2xpZW50cy9DbGllbnRWaWV3LmNzaHRtbA==
+[C:/Users/jolan/OneDrive/Documents/PointOfSalesWebApp/POSWebApp/Pages/Clients/ClientView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2xpZW50c1xDbGllbnRWaWV3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/workspaces/POSWebApp/Pages/Error.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
+[C:/Users/jolan/OneDrive/Documents/PointOfSalesWebApp/POSWebApp/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/workspaces/POSWebApp/Pages/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
+[C:/Users/jolan/OneDrive/Documents/PointOfSalesWebApp/POSWebApp/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/workspaces/POSWebApp/Pages/POS/Sale.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUE9TL1NhbGUuY3NodG1s
+[C:/Users/jolan/OneDrive/Documents/PointOfSalesWebApp/POSWebApp/Pages/POS/Sale.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUE9TXFNhbGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/workspaces/POSWebApp/Pages/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJpdmFjeS5jc2h0bWw=
+[C:/Users/jolan/OneDrive/Documents/PointOfSalesWebApp/POSWebApp/Pages/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/workspaces/POSWebApp/Pages/Products/Products.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZHVjdHMvUHJvZHVjdHMuY3NodG1s
+[C:/Users/jolan/OneDrive/Documents/PointOfSalesWebApp/POSWebApp/Pages/Products/Products.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdHNcUHJvZHVjdHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/workspaces/POSWebApp/Pages/Products/ProductView.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZHVjdHMvUHJvZHVjdFZpZXcuY3NodG1s
+[C:/Users/jolan/OneDrive/Documents/PointOfSalesWebApp/POSWebApp/Pages/Products/ProductView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZHVjdHNcUHJvZHVjdFZpZXcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/workspaces/POSWebApp/Pages/Shared/_ValidationScriptsPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+[C:/Users/jolan/OneDrive/Documents/PointOfSalesWebApp/POSWebApp/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/workspaces/POSWebApp/Pages/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+[C:/Users/jolan/OneDrive/Documents/PointOfSalesWebApp/POSWebApp/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/workspaces/POSWebApp/Pages/_ViewStart.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdTdGFydC5jc2h0bWw=
+[C:/Users/jolan/OneDrive/Documents/PointOfSalesWebApp/POSWebApp/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/workspaces/POSWebApp/Pages/Shared/_Layout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19MYXlvdXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = b-t2pvobhlfw
+[C:/Users/jolan/OneDrive/Documents/PointOfSalesWebApp/POSWebApp/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-2c3qva8onf

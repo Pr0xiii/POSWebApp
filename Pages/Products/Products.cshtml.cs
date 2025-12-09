@@ -45,6 +45,8 @@ namespace PointOfSalesWebApplication.Pages.Products
         {
             var products = _productService.GetAllProducts().AsQueryable();
 
+            if (products == null) return Page();
+
             if(!string.IsNullOrWhiteSpace(SearchString)) 
             {
                 products = products.Where(c => c.Name.ToLower().Contains(SearchString.ToLower()));

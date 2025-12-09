@@ -1,12 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using PointOfSalesWebApplication.Data;
 using PointOfSalesWebApplication.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddSingleton<IProductService, ProductService>();
-builder.Services.AddSingleton<IClientService, ClientService>();
-builder.Services.AddSingleton<ISaleService, SaleService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<ISaleService, SaleService>();
+
+builder.Services.AddDbContext<PosContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("PosContext")));
 
 var app = builder.Build();
 
