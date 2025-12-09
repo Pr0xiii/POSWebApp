@@ -1,5 +1,8 @@
 @page "/pos/sale"
 @model PointOfSalesWebApplication.Pages.POS.SaleModel
+@{
+    Layout = "_PosLayout";
+}
 
 <div class="header">
     <h1>@Model.CurrentSale.Name</h1>
@@ -36,6 +39,7 @@
                 <th>Unit Price</th>
                 <th>Quantity</th>
                 <th>Price</th>
+                <th></th>
             </tr>
             @foreach(var product in Model.CurrentSale.Lines) 
             {
@@ -44,6 +48,14 @@
                     <td>@product.UnitPrice</td>
                     <td>@product.Quantity</td>
                     <td>@product.TotalPrice</td>
+                    <td>
+                        <form mathod="post" asp-page-handler="RemoveProduct" class="d-inline">
+                            <input type="hidden" name="saleID" value="@Model.CurrentSale.ID" />
+                            <input type="hidden" name="productID" value="@product.ProductID" />
+                            <input type="hidden" name="qty" value="1" />
+                            <button type="submit" class="btn btn-danger btn-sm">-</button>
+                        </form>
+                    </td>
                 </tr>
             }
         </table>
@@ -102,8 +114,4 @@
         var myModal = new bootstrap.Modal(document.getElementById('paymentModal'));
         myModal.show();
     </script>
-}
-
-@{
-
 }

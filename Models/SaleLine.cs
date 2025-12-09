@@ -10,8 +10,8 @@ namespace PointOfSalesWebApplication.Models
         public int ProductID { get; set; }
         public Product Product { get; set; }
         public int Quantity { get; set; }
-        public double UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
 
-        public double TotalPrice => UnitPrice * Quantity;
+        public decimal TotalPrice => UnitPrice * Quantity;
     }
 }

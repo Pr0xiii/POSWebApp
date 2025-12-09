@@ -4,13 +4,13 @@ namespace PointOfSalesWebApplication.Services
 {
     public interface IClientService 
     {
-        public List<Person> GetAllClients();
-        public Person? GetClientById(int? id);
-        public void UpdateClient(Person client);
-        public void DeleteClient(int id);
-        public int GetRandomID();
+        Task<List<Person>> GetAllClientsAsync();
+        Task<Person?> GetClientByIdAsync(int? id);
+        Task UpdateClientAsync(Person client);
+        Task DeleteClientAsync(int id);
+        Task<int> GetRandomIDAsync();
 
-        public List<Sale> GetAllSales(int clientID);
-        public void AddSale(int clientID, Sale sale);
+        Task<List<Sale>> GetAllSalesAsync(int clientID);
+        Task AddSaleAsync(int clientID, Sale sale);
     }
 }

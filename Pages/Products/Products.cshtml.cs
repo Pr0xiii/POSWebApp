@@ -4,11 +4,13 @@ using PointOfSalesWebApplication.Models;
 using PointOfSalesWebApplication.Services;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using PointOfSalesWebApplication.Data;
 
 namespace PointOfSalesWebApplication.Pages.Products
 {
     public class ProductsModel : PageModel
     {
+        private readonly PosContext _context;
         private readonly IProductService _productService;
         public List<Product>? Products { get; set; }
 
@@ -36,14 +38,16 @@ namespace PointOfSalesWebApplication.Pages.Products
             }
         );
         
-        public ProductsModel(IProductService productService) 
+        public ProductsModel(PosContext context, IProductService productService) 
         {
+            _context = context;
             _productService = productService;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            var products = _productService.GetAllProducts().AsQueryable();
+            var products = from p in _context.Products
+                select p;
 
             if (products == null) return Page();
 
@@ -71,9 +75,9 @@ namespace PointOfSalesWebApplication.Pages.Products
             return Page();
         }
 
-        public IActionResult OnPostDelete(int productID)
+        public async Task<IActionResult> OnPostDeleteAsync(int productID)
         {
-            _productService.DeleteProduct(productID);
+            await _productService.DeleteProductAsync(productID);
             return RedirectToPage();
         }
     }

@@ -4,17 +4,19 @@ namespace PointOfSalesWebApplication.Services
 {
     public interface ISaleService 
     {
-        public Sale? CreateSale(int? clientID = null);
-        public Sale GetSaleById(int saleID);
+        Task<Sale?> CreateSaleAsync(int? clientID = null);
+        Task<Sale> GetSaleByIdAsync(int saleID);
 
-        public void AddProduct(int saleID, int productID, int qty = 1);
-        public void RemoveProduct(int saleID, int productID, int qty = 1);
-        public void UpdateQuantity(int saleID, int productID, int qty);
+        Task AddProductAsync(int saleID, int productID, int qty = 1);
+        Task RemoveProductAsync(int saleID, int productID, int qty = 1);
+        Task UpdateQuantityAsync(int saleID, int productID, int qty);
 
-        public void SetClient(int saleID, int clientID);
+        Task SetClientAsync(int saleID, int clientID);
 
-        public void CalculateTotalCost(int saleID);
+        Task CalculateTotalCostAsync(int saleID);
 
-        public void FinalizeSale(int saleID, int clientID);
+        Task FinalizeSaleAsync(int saleID, int clientID);
+
+        Task CancelSaleAsync(int saleID);
     }
 }

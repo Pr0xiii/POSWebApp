@@ -4,10 +4,11 @@ namespace PointOfSalesWebApplication.Services
 {
     public interface IProductService
     {
-        public List<Product> GetAllProducts();
-        public Product? GetProductById(int? id);
-        public void UpdateProduct(Product product);
-        public void DeleteProduct(int id);
-        public int GetRandomID();
+        Task<List<Product>> GetAllProductsAsync();
+        Task<List<Product>> GetAllProductsToSoldAsync();
+        Task<Product?> GetProductByIdAsync(int? id);
+        Task UpdateProductAsync(Product product);
+        Task DeleteProductAsync(int id);
+        Task<int> GetRandomIDAsync();
     }
 }

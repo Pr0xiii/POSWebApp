@@ -19,7 +19,7 @@ namespace PointOfSalesWebApplication.Models
         public Person? Client { get; set; }
 
         public List<SaleLine> Lines { get; set; } = new();
-        public double TotalCost { get; set; }
+        public decimal TotalCost { get; set; }
 
         public SaleStatus Status { get; set; } = SaleStatus.Devis;
     }

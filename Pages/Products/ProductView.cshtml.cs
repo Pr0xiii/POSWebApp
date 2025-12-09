@@ -17,16 +17,16 @@ namespace PointOfSalesWebApplication.Pages.Products
             _productService = productService;
         }
 
-        public IActionResult OnGet(int? productID)
+        public async Task<IActionResult> OnGetAsync(int? productID)
         {
             if (productID == null)
             {
                 Product = new Product();
-                Product.ID = _productService.GetRandomID();
+                Product.ID = await _productService.GetRandomIDAsync();
                 return Page();
             }
 
-            Product = _productService.GetProductById(productID);
+            Product = await _productService.GetProductByIdAsync(productID);
             if (Product == null)
             {
                 return RedirectToPage("/Products/Products");
@@ -35,13 +35,12 @@ namespace PointOfSalesWebApplication.Pages.Products
             return Page();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid) return Page();
             if (Product == null) return Page();
 
-            Console.WriteLine(Product.ID);
-            _productService.UpdateProduct(Product);
+            await _productService.UpdateProductAsync(Product);
             return RedirectToPage("/Products/Products");
         }
     }

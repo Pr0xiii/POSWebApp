@@ -1,4 +1,5 @@
-﻿using PointOfSalesWebApplication.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PointOfSalesWebApplication.Data;
 using PointOfSalesWebApplication.Models;
 
 namespace PointOfSalesWebApplication.Services
@@ -8,52 +9,42 @@ namespace PointOfSalesWebApplication.Services
         private readonly PosContext _context;
         private readonly Random _rand = new Random();
 
-        private static List<Product> _products = new()
-        {
-            new Product
-            {
-                ID = 0,
-                Name = "Apple",
-                CostPrice = 0.53,
-                SalePrice = 1.20,
-                CanBeSold = true
-            },
-            new Product
-            {
-                ID = 1,
-                Name = "Pizza",
-                CostPrice = 3.145,
-                SalePrice = 5.99,
-                CanBeSold = false
-            }
-        };
-
         public ProductService(PosContext productContext)
         {
             _context = productContext;
         }
 
-        public void DeleteProduct(int id)
+        public async Task DeleteProductAsync(int id)
         {
-            Product? product = GetProductById(id);
+            Product? product = await GetProductByIdAsync(id);
             if (product != null)
                 _context.Products.Remove(product);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public List<Product> GetAllProducts()
+        public async Task<List<Product>> GetAllProductsAsync()
         {
-            return _context.Products.ToList();
+            return await _context.Products.ToListAsync();
         }
 
-        public Product? GetProductById(int? id)
+        public async Task<List<Product>> GetAllProductsToSoldAsync() 
         {
-            return GetAllProducts().FirstOrDefault(x => x.ID == id);
+            return await _context.Products
+                            .Where(p => p.CanBeSold)
+                            .ToListAsync();
         }
 
-        public void UpdateProduct(Product product)
+        public async Task<Product?> GetProductByIdAsync(int? id)
         {
-            var existing = GetAllProducts().FirstOrDefault(p => p.ID == product.ID);
+            if (id == null) return null;
+
+            return await _context.Products
+                .FirstOrDefaultAsync(p => p.ID == id);
+        }
+
+        public async Task UpdateProductAsync(Product product)
+        {
+            var existing = await GetProductByIdAsync(product.ID);
             if (existing != null)
             {
                 existing.Name = product.Name;
@@ -66,18 +57,20 @@ namespace PointOfSalesWebApplication.Services
                 _context.Products.Add(product);
             }
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public int GetRandomID()
+        public async Task<int> GetRandomIDAsync()
         {
             int id;
+            bool exists;
 
             do
             {
                 id = _rand.Next(1000, 10000); // 1000–9999
+                exists = await _context.Clients.AnyAsync(c => c.ID == id);
             }
-            while (GetAllProducts().Any(s => s.ID == id));
+            while (exists);
 
             return id;
         }

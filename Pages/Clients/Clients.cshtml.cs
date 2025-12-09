@@ -5,12 +5,14 @@ using PointOfSalesWebApplication.Services;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PointOfSalesWebApplication.Data;
 
 namespace PointOfSalesWebApplication.Pages.Clients
 {
     public class ClientsModel : PageModel 
     {
         private readonly IClientService _clientService;
+        private readonly PosContext _context;
         public List<Person>? Clients { get; set; }
 
         [BindProperty(SupportsGet = true)]
@@ -25,14 +27,16 @@ namespace PointOfSalesWebApplication.Pages.Clients
             }
         );
 
-        public ClientsModel(IClientService clientService) 
+        public ClientsModel(PosContext context, IClientService clientService) 
         {
+            _context = context;
             _clientService = clientService;
         }
 
-        public IActionResult OnGet() 
+        public async Task<IActionResult> OnGetAsync() 
         {
-            var _clients = _clientService.GetAllClients().AsQueryable();
+            var _clients = from c in _context.Clients
+                        select c;
 
             if (_clients == null) return Page();
 
@@ -51,9 +55,9 @@ namespace PointOfSalesWebApplication.Pages.Clients
             return Page();
         }
 
-        public IActionResult OnPostDelete(int clientID)
+        public async Task<IActionResult> OnPostDeleteAsync(int clientID)
         {
-            _clientService.DeleteClient(clientID);
+            await _clientService.DeleteClientAsync(clientID);
             return RedirectToPage();
         }
     }

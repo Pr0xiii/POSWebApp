@@ -15,6 +15,10 @@ namespace PointOfSalesWebApplication.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Sale>()
+                .Property(e => e.TotalCost)
+                .HasConversion<double>();
+                
             // Relations Sale -> SaleLines
             modelBuilder.Entity<Sale>()
                 .HasMany(s => s.Lines)

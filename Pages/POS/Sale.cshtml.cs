@@ -31,56 +31,53 @@ namespace PointOfSalesWebApplication.Pages.POS
             _clientService = clientService;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            var clients = _clientService.GetAllClients().AsQueryable();
+            var clients = await _clientService.GetAllClientsAsync();
             ClientOptions = new SelectList(clients.Select(x => x.Name).ToList());
 
-            Products = _productService.GetAllProducts()
-                .Where(x => x.CanBeSold)
-                .ToList();
+            Products = await _productService.GetAllProductsToSoldAsync();
 
             if (SaleID.HasValue)
             {
-                CurrentSale = _saleService.GetSaleById(SaleID.Value);
+                CurrentSale = await _saleService.GetSaleByIdAsync(SaleID.Value);
                 if (CurrentSale == null)
                     return NotFound();
             }
             else
             {
-                CurrentSale = _saleService.CreateSale();
+                CurrentSale = await _saleService.CreateSaleAsync();
                 SaleID = CurrentSale.ID;
             }
 
             if (!string.IsNullOrWhiteSpace(ClientString))
             {
                 var client = clients.First(x => x.Name == ClientString).ID;
-                SetClientToSale(client);
+                await SetClientToSaleAsync(client);
             }
 
-            _saleService.CalculateTotalCost(CurrentSale.ID);
+            await _saleService.CalculateTotalCostAsync(CurrentSale.ID);
             return Page();
         }
 
-        public IActionResult OnPostAddProduct(int saleID, int productID, int qty = 1) 
+        public async Task<IActionResult> OnPostAddProductAsync(int saleID, int productID, int qty = 1) 
         {   
-            _saleService.AddProduct(saleID, productID, qty);
+            await _saleService.AddProductAsync(saleID, productID, qty);
             return RedirectToPage(new { saleID });
         }
-        public void RemoveProductFromSale(int productID, int qty = 1) 
+        public async Task<IActionResult> OnPostRemoveProductAsync(int saleID, int productID, int qty = 1) 
         {
-            if(CurrentSale == null) return;
-            _saleService.RemoveProduct(CurrentSale.ID, productID, qty);
+            await _saleService.RemoveProductAsync(saleID, productID, qty);
+            return RedirectToPage(new { saleID });
         }
-        public void SetClientToSale(int clientID) 
+        public async Task SetClientToSaleAsync(int clientID) 
         {
-            if(CurrentSale == null) return;
-            _saleService.SetClient(CurrentSale.ID, clientID);
+            await _saleService.SetClientAsync(CurrentSale.ID, clientID);
         }
 
-        public IActionResult OnPostFinalizeSale(int saleID, int clientID) 
+        public async Task<IActionResult> OnPostFinalizeSaleAsync(int saleID, int clientID) 
         {
-            _saleService.FinalizeSale(saleID, clientID);
+            await _saleService.FinalizeSaleAsync(saleID, clientID);
             TempData["ShowPaymentModal"] = true;
             return RedirectToPage();
         }

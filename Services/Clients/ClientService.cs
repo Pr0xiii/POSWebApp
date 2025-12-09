@@ -14,22 +14,22 @@ namespace PointOfSalesWebApplication.Services
             _context = context;
         }
 
-        public List<Person> GetAllClients() 
+        public async Task<List<Person>> GetAllClientsAsync() 
         {
-            return _context.Clients.ToList();
+            return await _context.Clients.ToListAsync();
         }
 
-        public Person? GetClientById(int? id) 
+        public async Task<Person?> GetClientByIdAsync(int? id) 
         {
             if (id == null) return null;
 
-            return _context.Clients
+            return await _context.Clients
                 .Include(c => c.Sales)
                 .ThenInclude(s => s.Lines)
-                .FirstOrDefault(c => c.ID == id);
+                .FirstOrDefaultAsync(c => c.ID == id);
         }
 
-        public void UpdateClient(Person client) 
+        public async Task UpdateClientAsync(Person client) 
         {
             //var existing = GetClientById(client.ID);
             //if(existing != null) 
@@ -44,48 +44,50 @@ namespace PointOfSalesWebApplication.Services
             //    _context.Clients.Add(client);
             //}
             _context.Clients.Update(client);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void DeleteClient(int id) 
+        public async Task DeleteClientAsync(int id) 
         {
-            var existing = GetClientById(id);
+            var existing = await GetClientByIdAsync(id);
             if(existing != null) 
             { 
                 _context.Clients.Remove(existing);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
 
-        public int GetRandomID() 
+        public async Task<int> GetRandomIDAsync()
         {
             int id;
+            bool exists;
 
             do
             {
-                id = _rand.Next(1000, 10000); // 1000–9999
+                id = _rand.Next(1000, 10000); // 1000â€“9999
+                exists = await _context.Clients.AnyAsync(c => c.ID == id);
             }
-            while (GetAllClients().Any(s => s.ID == id));
+            while (exists);
 
             return id;
         }
 
-        public List<Sale> GetAllSales(int clientID) 
+        public async Task<List<Sale>> GetAllSalesAsync(int clientID) 
         { 
-            var client = GetClientById(clientID);
+            var client = await GetClientByIdAsync(clientID);
             return client?.Sales ?? new List<Sale>();
         }
         
-        public void AddSale(int clientID, Sale sale) 
+        public async Task AddSaleAsync(int clientID, Sale sale) 
         {
-            var client = GetClientById(clientID);
+            var client = await GetClientByIdAsync(clientID);
             if(client == null) return;
 
             if(sale.ClientID == clientID) 
             {
                 client.Sales.Add(sale);
             }
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

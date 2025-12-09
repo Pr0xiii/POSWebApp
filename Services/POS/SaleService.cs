@@ -19,35 +19,35 @@ namespace PointOfSalesWebApplication.Services
             _clientService = clientService;
         }
 
-        public Sale? CreateSale(int? clientID = null) 
+        public async Task<Sale?> CreateSaleAsync(int? clientID = null) 
         {
-            int newId = GenerateSaleId();
+            int newId = await GenerateSaleIdAsync();
 
             var newSale = new Sale 
             {
                 ID = newId,
                 Name = GenerateSaleName(newId),
                 ClientID = clientID,
-                Client = _clientService.GetClientById(clientID)
+                Client = await _clientService.GetClientByIdAsync(clientID)
             };
             
             _context.Sales.Add(newSale);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return newSale;
         }
-        public Sale GetSaleById(int saleID) 
+        public async Task<Sale> GetSaleByIdAsync(int saleID) 
         {
-            return _context.Sales
+            return await _context.Sales
                 .Include(s => s.Lines)
                 .ThenInclude(l => l.Product)
-                .FirstOrDefault(s => s.ID == saleID);
+                .FirstOrDefaultAsync(s => s.ID == saleID);
         }
 
-        public void AddProduct(int saleID, int productID, int qty = 1) 
+        public async Task AddProductAsync(int saleID, int productID, int qty = 1) 
         {
-            var sale = GetSaleById(saleID);
-            var product = _productService.GetProductById(productID);
+            var sale = await GetSaleByIdAsync(saleID);
+            var product = await _productService.GetProductByIdAsync(productID);
 
             var line = sale.Lines.FirstOrDefault(x => x.ProductID == productID);
             if(line == null) 
@@ -67,13 +67,13 @@ namespace PointOfSalesWebApplication.Services
                 line.Quantity += qty;
             }
 
-            CalculateTotalCost(saleID);
-            _context.SaveChanges();
+            await CalculateTotalCostAsync(saleID);
+            await _context.SaveChangesAsync();
         }
-        public void RemoveProduct(int saleID, int productID, int qty = 1) 
+        public async Task RemoveProductAsync(int saleID, int productID, int qty = 1) 
         {
-            var sale = GetSaleById(saleID);
-            var product = _productService.GetProductById(productID);
+            var sale = await GetSaleByIdAsync(saleID);
+            var product = await _productService.GetProductByIdAsync(productID);
 
             var line = sale.Lines.FirstOrDefault(x => x.ProductID == productID);
 
@@ -88,70 +88,81 @@ namespace PointOfSalesWebApplication.Services
                 line.Quantity -= qty;
             }
 
-            CalculateTotalCost(saleID);
-            _context.SaveChanges();
+            await CalculateTotalCostAsync(saleID);
+            await _context.SaveChangesAsync();
         }
-        public void UpdateQuantity(int saleID, int productID, int qty) 
+        public async Task UpdateQuantityAsync(int saleID, int productID, int qty) 
         {
-            var sale = GetSaleById(saleID);
-            var product = _productService.GetProductById(productID);
+            var sale = await GetSaleByIdAsync(saleID);
+            var product = await _productService.GetProductByIdAsync(productID);
 
             var line = sale.Lines.FirstOrDefault(x => x.ProductID == productID);
 
             if(line != null) {
                 line.Quantity += qty;
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
 
-            CalculateTotalCost(saleID);
+            await CalculateTotalCostAsync(saleID);
         }
 
-        public void SetClient(int saleID, int clientID) 
+        public async Task SetClientAsync(int saleID, int clientID) 
         {
-            var sale = GetSaleById(saleID);
-            var client = _clientService.GetClientById(clientID);
+            var sale = await GetSaleByIdAsync(saleID);
+            var client = await _clientService.GetClientByIdAsync(clientID);
 
             sale.ClientID = clientID;
             sale.Client = client;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void CalculateTotalCost(int saleID) 
+        public async Task CalculateTotalCostAsync(int saleID) 
         {
-            var sale = GetSaleById(saleID);
-            sale.TotalCost = sale.Lines.Sum(x => x.TotalPrice);
+            var sale = await GetSaleByIdAsync(saleID);
+            sale.TotalCost = Math.Round(sale.Lines.Sum(x => x.TotalPrice), 2);
         }
 
-        public void FinalizeSale(int saleID, int clientID) 
+        public async Task FinalizeSaleAsync(int saleID, int clientID) 
         {
-            var sale = GetSaleById(saleID);
-            var client = _clientService.GetClientById(clientID);
-
+            var sale = await GetSaleByIdAsync(saleID);
+            var client = await _clientService.GetClientByIdAsync(clientID);
+            sale.Status = SaleStatus.Paid;
+            
             if(client != null) 
             {
-                _clientService.AddSale(clientID, sale);
+                Console.WriteLine("LE NOM" + sale.Client.Name);
+                await SetClientAsync(saleID, clientID);
+                await _clientService.AddSaleAsync(clientID, sale);
             }
 
-            sale.Status = SaleStatus.Paid;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        private int GenerateSaleId()
+        private async Task<int> GenerateSaleIdAsync()
         {
             int id;
+            bool exists;
 
             do
             {
                 id = _rand.Next(1000, 10000); // 1000–9999
+                exists = await _context.Clients.AnyAsync(c => c.ID == id);
             }
-            while (_sales.Any(s => s.ID == id));
+            while (exists);
 
             return id;
         }
         private string GenerateSaleName(int id) 
         {
             return $"SO{DateTime.Today:yyMM}{id}";
+        }
+
+        public async Task CancelSaleAsync(int saleID) 
+        {
+            var sale = await GetSaleByIdAsync(saleID);
+            sale.Status = SaleStatus.Canceled;
+            await _context.SaveChangesAsync();
         }
     }
 }

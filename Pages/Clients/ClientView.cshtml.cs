@@ -17,16 +17,16 @@ namespace PointOfSalesWebApplication.Pages.Clients
             _clientService = clientService;
         }
 
-        public IActionResult OnGet(int? clientID)
+        public async Task<IActionResult> OnGetAsync(int? clientID)
         {
             if (clientID == null)
             {
                 Client = new Person();
-                Client.ID = _clientService.GetRandomID();
+                Client.ID = await _clientService.GetRandomIDAsync();
                 return Page();
             }
 
-            Client = _clientService.GetClientById(clientID);
+            Client = await _clientService.GetClientByIdAsync(clientID);
             if (Client == null)
             {
                 return RedirectToPage("/Clients/Clients");
@@ -35,12 +35,12 @@ namespace PointOfSalesWebApplication.Pages.Clients
             return Page();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid) return Page();
             if (Client == null) return Page();
 
-            _clientService.UpdateClient(Client);
+            await _clientService.UpdateClientAsync(Client);
             return RedirectToPage("/Clients/Clients");
         }
     }

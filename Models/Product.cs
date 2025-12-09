@@ -11,11 +11,11 @@ namespace PointOfSalesWebApplication.Models
 
         [Required]
         [Range(0.001, 100000, ErrorMessage = "Please enter a valid number.")]
-        public double CostPrice { get; set; }
+        public decimal CostPrice { get; set; }
 
         [Required]
         [Range(0.001, 100000, ErrorMessage = "Please enter a valid number.")]
-        public double SalePrice { get; set; }
+        public decimal SalePrice { get; set; }
         public bool CanBeSold { get; set; }
     }
 }
