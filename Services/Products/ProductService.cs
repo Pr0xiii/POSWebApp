@@ -63,7 +63,7 @@ namespace PointOfSalesWebApplication.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<int> GetRandomIDAsync(string userid)
+        public async Task<int> GetRandomIDAsync()
         {
             int id;
             bool exists;
@@ -72,7 +72,6 @@ namespace PointOfSalesWebApplication.Services
             {
                 id = _rand.Next(1000, 10000); // 1000–9999
                 exists = await _context.Clients
-                    .Where(c => c.UserId == userid)
                     .AnyAsync(c => c.ID == id);
             }
             while (exists);

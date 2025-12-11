@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,6 +15,7 @@ namespace PointOfSalesWebApplication.Pages.Products
     {
         private readonly PosContext _context;
         private readonly IProductService _productService;
+        private readonly UserManager<IdentityUser> _userManager;
         public List<Product>? Products { get; set; }
 
         [BindProperty(SupportsGet = true)]
@@ -40,17 +42,20 @@ namespace PointOfSalesWebApplication.Pages.Products
             }
         );
         
-        public ProductsModel(PosContext context, IProductService productService) 
+        public ProductsModel(PosContext context, IProductService productService, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _productService = productService;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
+
+            var userId = user.Id;
 
             var products = _context.Products
                             .Where(p => p.UserId == userId);
@@ -81,9 +86,11 @@ namespace PointOfSalesWebApplication.Pages.Products
 
         public async Task<IActionResult> OnPostDeleteAsync(int productID)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
+
+            var userId = user.Id;
 
             await _productService.DeleteProductAsync(productID, userId);
             return RedirectToPage();
