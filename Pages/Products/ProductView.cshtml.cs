@@ -59,12 +59,6 @@ namespace PointOfSalesWebApplication.Pages.Products
 
             var userId = user.Id;
 
-            //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //if (userId == null)
-            //    return RedirectToPage("/Account/Login", new { area = "Identity" });
-
-            //Product.UserId = userId;
-
             await _productService.UpdateProductAsync(Product, userId);
             return RedirectToPage("/Products/Products");
         }

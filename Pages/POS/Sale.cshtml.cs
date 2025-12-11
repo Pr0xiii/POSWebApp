@@ -13,6 +13,7 @@ namespace PointOfSalesWebApplication.Pages.POS
         private readonly ISaleService _saleService;
         private readonly IProductService _productService;
         private readonly IClientService _clientService;
+        private readonly UserManager<IdentityUser> _userManager;
 
         [BindProperty(SupportsGet = true)]
         public int? SaleID { get; set; }
@@ -25,18 +26,21 @@ namespace PointOfSalesWebApplication.Pages.POS
 
         public SelectList? ClientOptions { get; set; }
 
-        public SaleModel(ISaleService saleService, IProductService productService, IClientService clientService) 
+        public SaleModel(ISaleService saleService, IProductService productService, IClientService clientService, UserManager<IdentityUser> userManager) 
         {
             _saleService = saleService;
             _productService = productService;
             _clientService = clientService;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
+
+            var userId = user.Id;
 
             var clients = await _clientService.GetAllClientsAsync(userId);
             ClientOptions = new SelectList(clients.Select(x => x.Name).ToList());
@@ -67,18 +71,22 @@ namespace PointOfSalesWebApplication.Pages.POS
 
         public async Task<IActionResult> OnPostAddProductAsync(int saleID, int productID, int qty = 1) 
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
+
+            var userId = user.Id;
 
             await _saleService.AddProductAsync(saleID, productID, userId, qty);
             return RedirectToPage(new { saleID });
         }
         public async Task<IActionResult> OnPostRemoveProductAsync(int saleID, int productID, int qty = 1)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
+
+            var userId = user.Id;
 
             await _saleService.RemoveProductAsync(saleID, productID, userId, qty);
             return RedirectToPage(new { saleID });
@@ -90,9 +98,11 @@ namespace PointOfSalesWebApplication.Pages.POS
 
         public async Task<IActionResult> OnPostFinalizeSaleAsync(int saleID, int clientID) 
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
+
+            var userId = user.Id;
 
             await _saleService.FinalizeSaleAsync(saleID, clientID, userId);
             TempData["ShowPaymentModal"] = true;

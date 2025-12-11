@@ -14,6 +14,8 @@ namespace PointOfSalesWebApplication.Pages.Clients
     {
         private readonly IClientService _clientService;
         private readonly PosContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+
         public List<Person>? Clients { get; set; }
 
         [BindProperty(SupportsGet = true)]
@@ -28,17 +30,20 @@ namespace PointOfSalesWebApplication.Pages.Clients
             }
         );
 
-        public ClientsModel(PosContext context, IClientService clientService) 
+        public ClientsModel(PosContext context, IClientService clientService, UserManager<IdentityUser> userManager) 
         {
             _context = context;
             _clientService = clientService;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> OnGetAsync() 
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
+
+            var userId = user.Id;
 
             var _clients = _context.Clients
                            .Where(c => c.UserId == userId);
@@ -60,9 +65,11 @@ namespace PointOfSalesWebApplication.Pages.Clients
 
         public async Task<IActionResult> OnPostDeleteAsync(int clientID)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
+
+            var userId = user.Id;
 
             await _clientService.DeleteClientAsync(clientID, userId);
             return RedirectToPage();

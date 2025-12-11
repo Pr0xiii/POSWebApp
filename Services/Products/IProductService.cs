@@ -9,6 +9,5 @@ namespace PointOfSalesWebApplication.Services
         Task<Product?> GetProductByIdAsync(int? id, string userid);
         Task UpdateProductAsync(Product product, string userid);
         Task DeleteProductAsync(int id, string userid);
-        Task<int> GetRandomIDAsync();
     }
 }

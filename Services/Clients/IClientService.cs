@@ -8,7 +8,6 @@ namespace PointOfSalesWebApplication.Services
         Task<Person?> GetClientByIdAsync(int? id, string userid);
         Task UpdateClientAsync(Person client);
         Task DeleteClientAsync(int id, string userid);
-        Task<int> GetRandomIDAsync(string userid);
 
         Task<List<Sale>> GetAllSalesAsync(int clientID, string userid);
         Task AddSaleAsync(int clientID, Sale sale, string userid);

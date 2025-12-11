@@ -50,23 +50,6 @@ namespace PointOfSalesWebApplication.Services
             }
         }
 
-        public async Task<int> GetRandomIDAsync(string userid)
-        {
-            int id;
-            bool exists;
-
-            do
-            {
-                id = _rand.Next(1000, 10000); // 1000–9999
-                exists = await _context.Clients
-                    .Where(c => c.UserId == userid)
-                    .AnyAsync(c => c.ID == id);
-            }
-            while (exists);
-
-            return id;
-        }
-
         public async Task<List<Sale>> GetAllSalesAsync(int clientID, string userid) 
         { 
             var client = await GetClientByIdAsync(clientID, userid);

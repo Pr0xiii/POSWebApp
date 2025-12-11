@@ -21,15 +21,11 @@ namespace PointOfSalesWebApplication.Services
 
         public async Task<Sale?> CreateSaleAsync(string userid, int? clientID = null) 
         {
-            int newId = await GenerateSaleIdAsync(userid);
-
             var newSale = new Sale 
             {
-                ID = newId,
                 Name = GenerateSaleName(newId),
                 ClientID = clientID,
-                Client = await _clientService.GetClientByIdAsync(clientID, userid),
-                UserId = userid
+                Client = await _clientService.GetClientByIdAsync(clientID, userid)
             };
             
             _context.Sales.Add(newSale);
@@ -146,22 +142,6 @@ namespace PointOfSalesWebApplication.Services
             await _context.SaveChangesAsync();
         }
 
-        private async Task<int> GenerateSaleIdAsync(string userid)
-        {
-            int id;
-            bool exists;
-
-            do
-            {
-                id = _rand.Next(1000, 10000); // 1000–9999
-                exists = await _context.Clients
-                    .Where(c => c.UserId == userid)
-                    .AnyAsync(c => c.ID == id);
-            }
-            while (exists);
-
-            return id;
-        }
         private string GenerateSaleName(int id)
         {
             return $"SO{DateTime.Today:yyMM}{id}";
