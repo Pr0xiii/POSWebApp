@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -106,7 +107,7 @@ namespace PointOfSalesWebApplication.Pages.POS
 
             await _saleService.FinalizeSaleAsync(saleID, clientID, userId);
             TempData["ShowPaymentModal"] = true;
-            return RedirectToPage();
+            return RedirectToPage("/POS/SalesView");
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PointOfSalesWebApplication.Data;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace PointOfSalesWebApplication.Pages.Clients
 {

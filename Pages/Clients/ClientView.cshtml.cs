@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration.UserSecrets;
@@ -24,7 +25,7 @@ namespace PointOfSalesWebApplication.Pages.Clients
         public async Task<IActionResult> OnGetAsync(int? clientID)
         {
             var user = await _userManager.GetUserAsync(User);
-            if (userId == null)
+            if (user == null)
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
 
             var userId = user.Id;
@@ -48,7 +49,7 @@ namespace PointOfSalesWebApplication.Pages.Clients
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid) return Page();
-            if (Product == null) return Page();
+            if (Client == null) return Page();
 
             await _clientService.UpdateClientAsync(Client);
             return RedirectToPage("/Clients/Clients");

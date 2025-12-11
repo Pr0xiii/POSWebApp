@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PointOfSalesWebApplication.Data;
 using PointOfSalesWebApplication.Models;
+using System.Runtime.CompilerServices;
 
 namespace PointOfSalesWebApplication.Services
 {
@@ -21,9 +22,10 @@ namespace PointOfSalesWebApplication.Services
 
         public async Task<Sale?> CreateSaleAsync(string userid, int? clientID = null) 
         {
-            var newSale = new Sale 
+            var newSale = new Sale
             {
-                Name = GenerateSaleName(newId),
+                UserId = userid,
+                Name = await GenerateSaleNameAsync(),
                 ClientID = clientID,
                 Client = await _clientService.GetClientByIdAsync(clientID, userid)
             };
@@ -142,8 +144,19 @@ namespace PointOfSalesWebApplication.Services
             await _context.SaveChangesAsync();
         }
 
-        private string GenerateSaleName(int id)
+        public async Task<string> GenerateSaleNameAsync()
         {
+            int id;
+            bool exists;
+
+            do
+            {
+                id = _rand.Next(1000, 10000); // 1000–9999
+                exists = await _context.Clients
+                    .AnyAsync(c => c.ID == id);
+            }
+            while (exists);
+
             return $"SO{DateTime.Today:yyMM}{id}";
         }
 

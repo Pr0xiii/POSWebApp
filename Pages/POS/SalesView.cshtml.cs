@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -20,6 +21,7 @@ namespace PointOfSalesWebApplication.Pages.POS
     {
         private readonly PosContext _context;
         private readonly ISaleService _saleService;
+        private readonly UserManager<IdentityUser> _userManager;
         public List<SaleGroup> Groups { get; set; } = new();
 
         [BindProperty(SupportsGet = true)]
@@ -49,17 +51,20 @@ namespace PointOfSalesWebApplication.Pages.POS
             }
         );
 
-        public SalesViewModel(PosContext context, ISaleService saleService) 
+        public SalesViewModel(PosContext context, ISaleService saleService, UserManager<IdentityUser> userManager) 
         {
             _context = context;
             _saleService = saleService;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> OnGetAsync() 
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null)
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
+
+            var userId = user.Id;
 
             IQueryable<Sale> _sales = _context.Sales
                 .Where(s => s.UserId == userId)
