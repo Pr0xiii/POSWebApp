@@ -50,7 +50,7 @@ namespace PointOfSalesWebApplication.Pages.Products
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
-                return RedirectToPage("/Account/Login");
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
 
             var products = _context.Products
                             .Where(p => p.UserId == userId);
@@ -83,7 +83,7 @@ namespace PointOfSalesWebApplication.Pages.Products
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
-                return RedirectToPage("/Account/Login");
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
 
             await _productService.DeleteProductAsync(productID, userId);
             return RedirectToPage();

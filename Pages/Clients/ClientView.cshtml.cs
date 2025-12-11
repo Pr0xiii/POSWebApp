@@ -22,7 +22,7 @@ namespace PointOfSalesWebApplication.Pages.Clients
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
-                return RedirectToPage("/Account/Login");
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
 
             if (clientID == null)
             {
@@ -35,7 +35,7 @@ namespace PointOfSalesWebApplication.Pages.Clients
             Client = await _clientService.GetClientByIdAsync(clientID, userId);
             if (Client == null)
             {
-                return RedirectToPage("/Clients/Clients");
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
             }
 
             return Page();
@@ -47,7 +47,7 @@ namespace PointOfSalesWebApplication.Pages.Clients
             if (Client == null) return Page();
 
             await _clientService.UpdateClientAsync(Client);
-            return RedirectToPage("/Clients/Clients");
+            return RedirectToPage("/Account/Login", new { area = "Identity" });
         }
     }
 }

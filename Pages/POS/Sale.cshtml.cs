@@ -36,7 +36,7 @@ namespace PointOfSalesWebApplication.Pages.POS
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
-                return RedirectToPage("/Account/Login");
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
 
             var clients = await _clientService.GetAllClientsAsync(userId);
             ClientOptions = new SelectList(clients.Select(x => x.Name).ToList());
@@ -69,7 +69,7 @@ namespace PointOfSalesWebApplication.Pages.POS
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
-                return RedirectToPage("/Account/Login");
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
 
             await _saleService.AddProductAsync(saleID, productID, userId, qty);
             return RedirectToPage(new { saleID });
@@ -78,7 +78,7 @@ namespace PointOfSalesWebApplication.Pages.POS
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
-                return RedirectToPage("/Account/Login");
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
 
             await _saleService.RemoveProductAsync(saleID, productID, userId, qty);
             return RedirectToPage(new { saleID });
@@ -92,7 +92,7 @@ namespace PointOfSalesWebApplication.Pages.POS
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
-                return RedirectToPage("/Account/Login");
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
 
             await _saleService.FinalizeSaleAsync(saleID, clientID, userId);
             TempData["ShowPaymentModal"] = true;

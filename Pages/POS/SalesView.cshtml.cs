@@ -59,7 +59,7 @@ namespace PointOfSalesWebApplication.Pages.POS
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
-                return RedirectToPage("/Account/Login");
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
 
             IQueryable<Sale> _sales = _context.Sales
                 .Where(s => s.UserId == userId)
