@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration.UserSecrets;
 using PointOfSalesWebApplication.Models;
 using PointOfSalesWebApplication.Services;
 using System.Security.Claims;
@@ -29,13 +30,12 @@ namespace PointOfSalesWebApplication.Pages.Clients
                 Client = new Person();
                 Client.UserId = userId;
                 Client.ID = await _clientService.GetRandomIDAsync(userId);
-                return Page();
             }
 
             Client = await _clientService.GetClientByIdAsync(clientID, userId);
             if (Client == null)
             {
-                return RedirectToPage("/Account/Login", new { area = "Identity" });
+                return RedirectToPage("/Clients/Clients");
             }
 
             return Page();
@@ -46,8 +46,14 @@ namespace PointOfSalesWebApplication.Pages.Clients
             if (!ModelState.IsValid) return Page();
             if (Client == null) return Page();
 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+
+            Client.UserId = userId;
+
             await _clientService.UpdateClientAsync(Client);
-            return RedirectToPage("/Account/Login", new { area = "Identity" });
+            return RedirectToPage("/Clients/Clients");
         }
     }
 }

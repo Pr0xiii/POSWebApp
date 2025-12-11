@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.CodeAnalysis.Elfie.Model;
 using PointOfSalesWebApplication.Models;
 using PointOfSalesWebApplication.Services;
 using System.Security.Claims;
@@ -35,7 +36,7 @@ namespace PointOfSalesWebApplication.Pages.Products
             Product = await _productService.GetProductByIdAsync(productID, userId);
             if (Product == null)
             {
-                return RedirectToPage("/Account/Login", new { area = "Identity" });
+                return RedirectToPage("/Products/Products");
             }
 
             return Page();
@@ -46,9 +47,11 @@ namespace PointOfSalesWebApplication.Pages.Products
             if (!ModelState.IsValid) return Page();
             if (Product == null) return Page();
 
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier).Value;
             if (userId == null)
                 return RedirectToPage("/Account/Login", new { area = "Identity" });
+
+            Product.UserId = userId;
 
             await _productService.UpdateProductAsync(Product, userId);
             return RedirectToPage("/Products/Products");
