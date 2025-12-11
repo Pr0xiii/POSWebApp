@@ -10,16 +10,16 @@
 <div class="notebook-container">
     <div class="col-sm-6 notebook">
         <form method="get">
-            <input type="hidden" name="saleID" value="@Model.CurrentSale.ID" />
+@*             <input type="hidden" name="saleID" value="@Model.CurrentSale.ID" /> *@
             <label asp-for="ClientString">Client</label>
             <select asp-for="ClientString" asp-items="Model.ClientOptions" class="form-select"
                     onchange="this.form.submit()">
                 <option>No Client Selected</option>  
             </select>
         </form>
-        @if(@Model.CurrentSale.Client != null) { 
-            <p>Facturation address : @Model.CurrentSale.Client.Address</p> 
-            <p>Delivery address : @Model.CurrentSale.Client.Address</p>
+        @if(@Model.CurrentSale.ClientID != null) { 
+            <p>Facturation address : @Model.CurrentSale.ClientAddress</p> 
+            <p>Delivery address : @Model.CurrentSale.ClientAddress</p>
         }
         else { 
             <p>Facturation address :</p> 
@@ -44,13 +44,12 @@
             @foreach(var product in Model.CurrentSale.Lines) 
             {
                 <tr>
-                    <td>@product.Product.Name</td>
+                    <td>@product.ProductName</td>
                     <td>@product.UnitPrice</td>
                     <td>@product.Quantity</td>
                     <td>@product.TotalPrice</td>
                     <td>
                         <form mathod="post" asp-page-handler="RemoveProduct" class="d-inline">
-                            <input type="hidden" name="saleID" value="@Model.CurrentSale.ID" />
                             <input type="hidden" name="productID" value="@product.ProductID" />
                             <input type="hidden" name="qty" value="1" />
                             <button type="submit" class="btn btn-danger btn-sm">-</button>
@@ -65,7 +64,6 @@
         @foreach(var product in Model.Products) 
         {
             <form method="post" asp-page-handler="AddProduct" class="product-card">
-                <input type="hidden" name="saleID" value="@Model.CurrentSale.ID" />
                 <input type="hidden" name="productID" value="@product.ID" />
                 <input type="hidden" name="qty" value="1" />
 
@@ -85,7 +83,6 @@
 </div>
 <div class="footer col-sm-6">
     <form method="post" asp-page-handler="FinalizeSale">
-        <input type="hidden" name="saleID" value="@Model.CurrentSale.ID" />
         <input type="hidden" name="clientID" value="@Model.CurrentSale.ClientID" />
         <button type="submit" class="btn btn-success">Payment</button>
     </form>

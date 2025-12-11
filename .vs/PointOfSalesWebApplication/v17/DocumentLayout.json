@@ -3,20 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|c:\\users\\jolan\\onedrive\\documents\\pointofsaleswebapp\\poswebapp\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|solutionrelative:pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|c:\\users\\jolan\\onedrive\\documents\\pointofsaleswebapp\\poswebapp\\pages\\shared\\_poslayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|solutionrelative:pages\\shared\\_poslayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|c:\\users\\jolan\\onedrive\\documents\\pointofsaleswebapp\\poswebapp\\pages\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|solutionrelative:pages\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|c:\\users\\jolan\\onedrive\\documents\\pointofsaleswebapp\\poswebapp\\pages\\pos\\sale.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|solutionrelative:pages\\pos\\sale.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|c:\\users\\jolan\\onedrive\\documents\\pointofsaleswebapp\\poswebapp\\pages\\clients\\clientview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|solutionrelative:pages\\clients\\clientview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|c:\\users\\jolan\\onedrive\\documents\\pointofsaleswebapp\\poswebapp\\pages\\pos\\sale.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|solutionrelative:pages\\pos\\sale.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|c:\\users\\jolan\\onedrive\\documents\\pointofsaleswebapp\\poswebapp\\services\\pos\\saleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|solutionrelative:services\\pos\\saleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,56 +30,69 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "SaleService.cs",
-              "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Services\\POS\\SaleService.cs",
-              "RelativeDocumentMoniker": "Services\\POS\\SaleService.cs",
-              "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Services\\POS\\SaleService.cs",
-              "RelativeToolTip": "Services\\POS\\SaleService.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwBsAAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T14:54:05.16Z",
+              "DocumentIndex": 1,
+              "Title": "_PosLayout.cshtml",
+              "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\Shared\\_PosLayout.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Shared\\_PosLayout.cshtml",
+              "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\Shared\\_PosLayout.cshtml",
+              "RelativeToolTip": "Pages\\Shared\\_PosLayout.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABwAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-11T21:03:04.521Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Pages\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-11T21:02:42.337Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "_LoginPartial.cshtml",
+              "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\Shared\\_LoginPartial.cshtml",
+              "RelativeDocumentMoniker": "Pages\\Shared\\_LoginPartial.cshtml",
+              "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\Shared\\_LoginPartial.cshtml",
+              "RelativeToolTip": "Pages\\Shared\\_LoginPartial.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-11T21:02:30.477Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Sale.cshtml",
               "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\POS\\Sale.cshtml",
               "RelativeDocumentMoniker": "Pages\\POS\\Sale.cshtml",
               "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\POS\\Sale.cshtml",
               "RelativeToolTip": "Pages\\POS\\Sale.cshtml",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAAAGEAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAIwEEAAABTAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-12-11T14:53:15.394Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ClientView.cshtml",
-              "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\Clients\\ClientView.cshtml",
-              "RelativeDocumentMoniker": "Pages\\Clients\\ClientView.cshtml",
-              "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\Clients\\ClientView.cshtml",
-              "RelativeToolTip": "Pages\\Clients\\ClientView.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-11T14:52:43.648Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Sale.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\POS\\Sale.cshtml.cs",
               "RelativeDocumentMoniker": "Pages\\POS\\Sale.cshtml.cs",
               "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\POS\\Sale.cshtml.cs",
               "RelativeToolTip": "Pages\\POS\\Sale.cshtml.cs",
-              "ViewState": "AgIAAFcAAAAAAAAAAAAIwG0AAAAxAAAAAAAAAA==",
+              "ViewState": "AgIAAFsAAAAAAAAAAADwvxQAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-11T14:34:20.477Z",
               "EditorCaption": ""

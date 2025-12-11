@@ -10,6 +10,6 @@ namespace PointOfSalesWebApplication.Services
         Task DeleteClientAsync(int id, string userid);
 
         Task<List<Sale>> GetAllSalesAsync(int clientID, string userid);
-        Task AddSaleAsync(int clientID, Sale sale, string userid);
+        Task AddSaleAsync(int? clientID, Sale sale, string userid);
     }
 }

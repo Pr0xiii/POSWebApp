@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PointOfSalesWebApplication")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+31e204eed6115a99194521b3b3cec58fca7f66ee")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+04930758bad737f9aa89362d96664ca0149ca8e2")]
 [assembly: System.Reflection.AssemblyProductAttribute("PointOfSalesWebApplication")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PointOfSalesWebApplication")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -4,6 +4,7 @@ namespace PointOfSalesWebApplication.Models
 {
     public class SaleLine
     {
+        public string UserId { get; set; }
         public int ID { get; set; }
         public int SaleID { get; set; }
         public Sale Sale { get; set; }
@@ -14,6 +15,5 @@ namespace PointOfSalesWebApplication.Models
 
         public decimal TotalPrice => UnitPrice * Quantity;
 
-        public string UserId { get; set; }
     }
 }

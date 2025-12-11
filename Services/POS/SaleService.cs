@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PointOfSalesWebApplication.Data;
 using PointOfSalesWebApplication.Models;
+using PointOfSalesWebApplication.Models.DTO;
 using System.Runtime.CompilerServices;
 
 namespace PointOfSalesWebApplication.Services
@@ -8,7 +9,6 @@ namespace PointOfSalesWebApplication.Services
     public class SaleService : ISaleService
     {
         private readonly PosContext _context;
-        private static List<Sale> _sales = new();
         private readonly IProductService _productService;
         private readonly IClientService _clientService;
         private readonly Random _rand = new Random();
@@ -29,9 +29,6 @@ namespace PointOfSalesWebApplication.Services
                 ClientID = clientID,
                 Client = await _clientService.GetClientByIdAsync(clientID, userid)
             };
-            
-            _context.Sales.Add(newSale);
-            await _context.SaveChangesAsync();
 
             return newSale;
         }
@@ -44,105 +41,89 @@ namespace PointOfSalesWebApplication.Services
                 .FirstOrDefaultAsync(s => s.ID == saleID);
         }
 
-        public async Task AddProductAsync(int saleID, int productID, string userid, int qty = 1)
+        public async Task AddProductDtoAsync(SaleDto sale, int productID, string userId, int qty)
         {
-            var sale = await GetSaleByIdAsync(saleID, userid);
-            var product = await _productService.GetProductByIdAsync(productID, userid);
+            var product = await _productService.GetProductByIdAsync(productID, userId);
 
-            var line = sale.Lines.FirstOrDefault(x => x.ProductID == productID);
-            if(line == null) 
+            var line = sale.Lines.FirstOrDefault(l => l.ProductID == productID);
+
+            if (line == null)
             {
-                sale.Lines.Add(new SaleLine 
+                sale.Lines.Add(new SaleLineDto
                 {
-                    UserId = userid,
-                    SaleID = saleID,
-                    Sale = sale,
                     ProductID = productID,
-                    Product = product,
-                    Quantity = qty,
-                    UnitPrice = product.SalePrice
+                    ProductName = product.Name,
+                    UnitPrice = product.SalePrice,
+                    Quantity = qty
                 });
             }
-            else 
+            else
             {
                 line.Quantity += qty;
             }
-
-            await CalculateTotalCostAsync(saleID, userid);
-            await _context.SaveChangesAsync();
         }
-        public async Task RemoveProductAsync(int saleID, int productID, string userid, int qty = 1) 
+
+        public Task RemoveProductDtoAsync(SaleDto sale, int productID, string userId, int qty)
         {
-            var sale = await GetSaleByIdAsync(saleID, userid);
-            var product = await _productService.GetProductByIdAsync(productID, userid);
+            var line = sale.Lines.FirstOrDefault(l => l.ProductID == productID);
+            if (line == null) return Task.CompletedTask;
 
-            var line = sale.Lines
-                .Where(x => x.UserId == userid)
-                .FirstOrDefault(x => x.ProductID == productID);
-
-            if(line == null) return;
-
-            if(line.Quantity == qty) 
-            {
+            if (line.Quantity <= qty)
                 sale.Lines.Remove(line);
-            }
-            else 
-            {
+            else
                 line.Quantity -= qty;
-            }
 
-            await CalculateTotalCostAsync(saleID, userid);
-            await _context.SaveChangesAsync();
+            return Task.CompletedTask;
         }
-        public async Task UpdateQuantityAsync(int saleID, int productID, int qty, string userid) 
+
+        public async Task UpdateQuantityDtoAsync(SaleDto sale, int productID, int qty, string userid) 
         {
-            var sale = await GetSaleByIdAsync(saleID, userid);
             var product = await _productService.GetProductByIdAsync(productID, userid);
 
             var line = sale.Lines
-                .Where(x => x.UserId == userid)
                 .FirstOrDefault(x => x.ProductID == productID);
 
             if (line != null) {
                 line.Quantity += qty;
-                await _context.SaveChangesAsync();
             }
-
-            await CalculateTotalCostAsync(saleID, userid);
         }
 
-        public async Task SetClientAsync(int saleID, int clientID, string userid) 
+        public async Task SetClientAsync(Sale sale, int? clientID, string userid) 
         {
-            var sale = await GetSaleByIdAsync(saleID, userid);
             var client = await _clientService.GetClientByIdAsync(clientID, userid);
 
             sale.ClientID = clientID;
             sale.Client = client;
-
-            await _context.SaveChangesAsync();
         }
 
-        public async Task CalculateTotalCostAsync(int saleID, string userid) 
+        public async Task CalculateTotalCostAsync(Sale sale, string userid) 
         {
-            var sale = await GetSaleByIdAsync(saleID, userid);
             sale.TotalCost = Math.Round(sale.Lines.Sum(x => x.TotalPrice), 2);
         }
 
-        public async Task FinalizeSaleAsync(int saleID, int clientID, string userid)
+        public async Task FinalizeSaleFromDtoAsync(SaleDto dto, string userId)
         {
-            var sale = await GetSaleByIdAsync(saleID, userid);
-            var client = await _clientService.GetClientByIdAsync(clientID, userid);
-            sale.Status = SaleStatus.Paid;
-            
-            if(client != null) 
+            var sale = new Sale
             {
-                Console.WriteLine("LE NOM" + sale.Client.Name);
-                await SetClientAsync(saleID, clientID, userid);
-                await _clientService.AddSaleAsync(clientID, sale, userid);
-            }
+                UserId = userId,
+                Name = dto.Name,
+                SaleDate = dto.SaleDate,
+                ClientID = dto.ClientID,
+                TotalCost = dto.TotalCost,
+                Status = SaleStatus.Paid,
+                Lines = dto.Lines.Select(l => new SaleLine
+                {
+                    UserId = userId,
+                    ProductID = l.ProductID,
+                    Quantity = l.Quantity,
+                    UnitPrice = l.UnitPrice
+                }).ToList()
+            };
 
+            _context.Sales.Add(sale);
             await _context.SaveChangesAsync();
         }
+
 
         public async Task<string> GenerateSaleNameAsync()
         {

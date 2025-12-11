@@ -56,7 +56,7 @@ namespace PointOfSalesWebApplication.Services
             return client?.Sales ?? new List<Sale>();
         }
         
-        public async Task AddSaleAsync(int clientID, Sale sale, string userid) 
+        public async Task AddSaleAsync(int? clientID, Sale sale, string userid) 
         {
             var client = await GetClientByIdAsync(clientID, userid);
             if(client == null) return;

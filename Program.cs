@@ -5,11 +5,6 @@ using PointOfSalesWebApplication.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IClientService, ClientService>();
-builder.Services.AddScoped<ISaleService, SaleService>();
-
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityDb")));
 
@@ -18,7 +13,19 @@ builder.Services.AddDbContext<PosContext>(options =>
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddRazorPages();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(60); // durée de vie de la session
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true; // indispensable pour que ça marche même sans consentement cookie
+});
+
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<ISaleService, SaleService>();
 
 var app = builder.Build();
 
@@ -37,6 +44,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapRazorPages();
 
