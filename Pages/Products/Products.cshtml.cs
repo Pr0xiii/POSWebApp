@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using PointOfSalesWebApplication.Data;
 using PointOfSalesWebApplication.Models;
 using PointOfSalesWebApplication.Services;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using PointOfSalesWebApplication.Data;
+using System.Security.Claims;
 
 namespace PointOfSalesWebApplication.Pages.Products
 {
@@ -46,10 +48,12 @@ namespace PointOfSalesWebApplication.Pages.Products
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var products = from p in _context.Products
-                select p;
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return RedirectToPage("/Account/Login");
 
-            if (products == null) return Page();
+            var products = _context.Products
+                            .Where(p => p.UserId == userId);
 
             if(!string.IsNullOrWhiteSpace(SearchString)) 
             {
@@ -71,13 +75,17 @@ namespace PointOfSalesWebApplication.Pages.Products
                 _ => products
             };
 
-            Products = products.ToList();
+            Products = await products.ToListAsync();
             return Page();
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(int productID)
         {
-            await _productService.DeleteProductAsync(productID);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return RedirectToPage("/Account/Login");
+
+            await _productService.DeleteProductAsync(productID, userId);
             return RedirectToPage();
         }
     }

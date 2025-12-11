@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PointOfSalesWebApplication.Models;
 using PointOfSalesWebApplication.Services;
+using System.Security.Claims;
 
 namespace PointOfSalesWebApplication.Pages.Clients
 {
@@ -19,14 +20,19 @@ namespace PointOfSalesWebApplication.Pages.Clients
 
         public async Task<IActionResult> OnGetAsync(int? clientID)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return RedirectToPage("/Account/Login");
+
             if (clientID == null)
             {
                 Client = new Person();
-                Client.ID = await _clientService.GetRandomIDAsync();
+                Client.UserId = userId;
+                Client.ID = await _clientService.GetRandomIDAsync(userId);
                 return Page();
             }
 
-            Client = await _clientService.GetClientByIdAsync(clientID);
+            Client = await _clientService.GetClientByIdAsync(clientID, userId);
             if (Client == null)
             {
                 return RedirectToPage("/Clients/Clients");

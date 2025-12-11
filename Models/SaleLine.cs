@@ -13,5 +13,7 @@ namespace PointOfSalesWebApplication.Models
         public decimal UnitPrice { get; set; }
 
         public decimal TotalPrice => UnitPrice * Quantity;
+
+        public string UserId { get; set; }
     }
 }

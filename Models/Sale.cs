@@ -22,5 +22,7 @@ namespace PointOfSalesWebApplication.Models
         public decimal TotalCost { get; set; }
 
         public SaleStatus Status { get; set; } = SaleStatus.Devis;
+
+        public string UserId { get; set; }
     }
 }

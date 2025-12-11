@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PointOfSalesWebApplication.Models;
 using PointOfSalesWebApplication.Services;
+using System.Security.Claims;
 
 namespace PointOfSalesWebApplication.Pages.Products
 {
@@ -19,14 +20,19 @@ namespace PointOfSalesWebApplication.Pages.Products
 
         public async Task<IActionResult> OnGetAsync(int? productID)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return RedirectToPage("/Account/Login");
+
             if (productID == null)
             {
                 Product = new Product();
-                Product.ID = await _productService.GetRandomIDAsync();
+                Product.UserId = userId;
+                Product.ID = await _productService.GetRandomIDAsync(userId);
                 return Page();
             }
 
-            Product = await _productService.GetProductByIdAsync(productID);
+            Product = await _productService.GetProductByIdAsync(productID, userId);
             if (Product == null)
             {
                 return RedirectToPage("/Products/Products");
@@ -40,7 +46,11 @@ namespace PointOfSalesWebApplication.Pages.Products
             if (!ModelState.IsValid) return Page();
             if (Product == null) return Page();
 
-            await _productService.UpdateProductAsync(Product);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return RedirectToPage("/Account/Login");
+
+            await _productService.UpdateProductAsync(Product, userId);
             return RedirectToPage("/Products/Products");
         }
     }

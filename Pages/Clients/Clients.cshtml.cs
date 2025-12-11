@@ -6,6 +6,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PointOfSalesWebApplication.Data;
+using System.Security.Claims;
 
 namespace PointOfSalesWebApplication.Pages.Clients
 {
@@ -35,29 +36,35 @@ namespace PointOfSalesWebApplication.Pages.Clients
 
         public async Task<IActionResult> OnGetAsync() 
         {
-            var _clients = from c in _context.Clients
-                        select c;
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return RedirectToPage("/Account/Login");
 
-            if (_clients == null) return Page();
+            var _clients = _context.Clients
+                           .Where(c => c.UserId == userId);
 
             if(!string.IsNullOrWhiteSpace(SearchString)) 
             {
-                _clients = _clients.Where(x => x.Name.ToLower().Contains(SearchString.ToLower()));
+                _clients = _clients.Where(c => c.Name.ToLower().Contains(SearchString.ToLower()));
             }
 
             _clients = SortString switch 
             {
-                "NameDesc" => _clients.OrderByDescending(x => x.Name),
-                _ => _clients.OrderBy(x => x.Name)
+                "NameDesc" => _clients.OrderByDescending(c => c.Name),
+                _ => _clients.OrderBy(c => c.Name)
             };
 
-            Clients = _clients.ToList();
+            Clients = await _clients.ToListAsync();
             return Page();
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(int clientID)
         {
-            await _clientService.DeleteClientAsync(clientID);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return RedirectToPage("/Account/Login");
+
+            await _clientService.DeleteClientAsync(clientID, userId);
             return RedirectToPage();
         }
     }

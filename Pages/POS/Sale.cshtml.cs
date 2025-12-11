@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PointOfSalesWebApplication.Models;
 using PointOfSalesWebApplication.Services;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace PointOfSalesWebApplication.Pages.POS
 {
@@ -33,51 +34,67 @@ namespace PointOfSalesWebApplication.Pages.POS
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var clients = await _clientService.GetAllClientsAsync();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return RedirectToPage("/Account/Login");
+
+            var clients = await _clientService.GetAllClientsAsync(userId);
             ClientOptions = new SelectList(clients.Select(x => x.Name).ToList());
 
-            Products = await _productService.GetAllProductsToSoldAsync();
+            Products = await _productService.GetAllProductsToSoldAsync(userId);
 
             if (SaleID.HasValue)
             {
-                CurrentSale = await _saleService.GetSaleByIdAsync(SaleID.Value);
+                CurrentSale = await _saleService.GetSaleByIdAsync(SaleID.Value, userId);
                 if (CurrentSale == null)
                     return NotFound();
             }
             else
             {
-                CurrentSale = await _saleService.CreateSaleAsync();
+                CurrentSale = await _saleService.CreateSaleAsync(userId);
                 SaleID = CurrentSale.ID;
             }
 
             if (!string.IsNullOrWhiteSpace(ClientString))
             {
                 var client = clients.First(x => x.Name == ClientString).ID;
-                await SetClientToSaleAsync(client);
+                await SetClientToSaleAsync(client, userId);
             }
 
-            await _saleService.CalculateTotalCostAsync(CurrentSale.ID);
+            await _saleService.CalculateTotalCostAsync(CurrentSale.ID, userId);
             return Page();
         }
 
         public async Task<IActionResult> OnPostAddProductAsync(int saleID, int productID, int qty = 1) 
-        {   
-            await _saleService.AddProductAsync(saleID, productID, qty);
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return RedirectToPage("/Account/Login");
+
+            await _saleService.AddProductAsync(saleID, productID, userId, qty);
             return RedirectToPage(new { saleID });
         }
-        public async Task<IActionResult> OnPostRemoveProductAsync(int saleID, int productID, int qty = 1) 
+        public async Task<IActionResult> OnPostRemoveProductAsync(int saleID, int productID, int qty = 1)
         {
-            await _saleService.RemoveProductAsync(saleID, productID, qty);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return RedirectToPage("/Account/Login");
+
+            await _saleService.RemoveProductAsync(saleID, productID, userId, qty);
             return RedirectToPage(new { saleID });
         }
-        public async Task SetClientToSaleAsync(int clientID) 
+        public async Task SetClientToSaleAsync(int clientID, string userid) 
         {
-            await _saleService.SetClientAsync(CurrentSale.ID, clientID);
+            await _saleService.SetClientAsync(CurrentSale.ID, clientID, userid);
         }
 
         public async Task<IActionResult> OnPostFinalizeSaleAsync(int saleID, int clientID) 
         {
-            await _saleService.FinalizeSaleAsync(saleID, clientID);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return RedirectToPage("/Account/Login");
+
+            await _saleService.FinalizeSaleAsync(saleID, clientID, userId);
             TempData["ShowPaymentModal"] = true;
             return RedirectToPage();
         }

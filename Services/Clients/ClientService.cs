@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PointOfSalesWebApplication.Data;
 using PointOfSalesWebApplication.Models;
+using System.Security.Claims;
 
 namespace PointOfSalesWebApplication.Services
 {
@@ -14,16 +16,19 @@ namespace PointOfSalesWebApplication.Services
             _context = context;
         }
 
-        public async Task<List<Person>> GetAllClientsAsync() 
+        public async Task<List<Person>> GetAllClientsAsync(string userid) 
         {
-            return await _context.Clients.ToListAsync();
+            return await _context.Clients
+                .Where(c => c.UserId == userid)
+                .ToListAsync();
         }
 
-        public async Task<Person?> GetClientByIdAsync(int? id) 
+        public async Task<Person?> GetClientByIdAsync(int? id, string userid) 
         {
             if (id == null) return null;
 
             return await _context.Clients
+                .Where(c => c.UserId == userid)
                 .Include(c => c.Sales)
                 .ThenInclude(s => s.Lines)
                 .FirstOrDefaultAsync(c => c.ID == id);
@@ -31,25 +36,13 @@ namespace PointOfSalesWebApplication.Services
 
         public async Task UpdateClientAsync(Person client) 
         {
-            //var existing = GetClientById(client.ID);
-            //if(existing != null) 
-            //{
-            //    existing.Name = client.Name;
-            //    existing.Address = client.Address;
-            //    existing.Email = client.Email;
-            //    existing.PhoneNumber = client.PhoneNumber;
-            //}
-            //else 
-            //{
-            //    _context.Clients.Add(client);
-            //}
             _context.Clients.Update(client);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteClientAsync(int id) 
+        public async Task DeleteClientAsync(int id, string userid) 
         {
-            var existing = await GetClientByIdAsync(id);
+            var existing = await GetClientByIdAsync(id, userid);
             if(existing != null) 
             { 
                 _context.Clients.Remove(existing);
@@ -57,7 +50,7 @@ namespace PointOfSalesWebApplication.Services
             }
         }
 
-        public async Task<int> GetRandomIDAsync()
+        public async Task<int> GetRandomIDAsync(string userid)
         {
             int id;
             bool exists;
@@ -65,22 +58,24 @@ namespace PointOfSalesWebApplication.Services
             do
             {
                 id = _rand.Next(1000, 10000); // 1000–9999
-                exists = await _context.Clients.AnyAsync(c => c.ID == id);
+                exists = await _context.Clients
+                    .Where(c => c.UserId == userid)
+                    .AnyAsync(c => c.ID == id);
             }
             while (exists);
 
             return id;
         }
 
-        public async Task<List<Sale>> GetAllSalesAsync(int clientID) 
+        public async Task<List<Sale>> GetAllSalesAsync(int clientID, string userid) 
         { 
-            var client = await GetClientByIdAsync(clientID);
+            var client = await GetClientByIdAsync(clientID, userid);
             return client?.Sales ?? new List<Sale>();
         }
         
-        public async Task AddSaleAsync(int clientID, Sale sale) 
+        public async Task AddSaleAsync(int clientID, Sale sale, string userid) 
         {
-            var client = await GetClientByIdAsync(clientID);
+            var client = await GetClientByIdAsync(clientID, userid);
             if(client == null) return;
 
             if(sale.ClientID == clientID) 

@@ -17,5 +17,7 @@ namespace PointOfSalesWebApplication.Models
         [Range(0.001, 100000, ErrorMessage = "Please enter a valid number.")]
         public decimal SalePrice { get; set; }
         public bool CanBeSold { get; set; }
+
+        public string UserId { get; set; }
     }
 }

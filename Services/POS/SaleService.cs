@@ -19,16 +19,17 @@ namespace PointOfSalesWebApplication.Services
             _clientService = clientService;
         }
 
-        public async Task<Sale?> CreateSaleAsync(int? clientID = null) 
+        public async Task<Sale?> CreateSaleAsync(string userid, int? clientID = null) 
         {
-            int newId = await GenerateSaleIdAsync();
+            int newId = await GenerateSaleIdAsync(userid);
 
             var newSale = new Sale 
             {
                 ID = newId,
                 Name = GenerateSaleName(newId),
                 ClientID = clientID,
-                Client = await _clientService.GetClientByIdAsync(clientID)
+                Client = await _clientService.GetClientByIdAsync(clientID, userid),
+                UserId = userid
             };
             
             _context.Sales.Add(newSale);
@@ -36,24 +37,26 @@ namespace PointOfSalesWebApplication.Services
 
             return newSale;
         }
-        public async Task<Sale> GetSaleByIdAsync(int saleID) 
+        public async Task<Sale> GetSaleByIdAsync(int saleID, string userid) 
         {
             return await _context.Sales
+                .Where(s => s.UserId == userid)
                 .Include(s => s.Lines)
                 .ThenInclude(l => l.Product)
                 .FirstOrDefaultAsync(s => s.ID == saleID);
         }
 
-        public async Task AddProductAsync(int saleID, int productID, int qty = 1) 
+        public async Task AddProductAsync(int saleID, int productID, string userid, int qty = 1)
         {
-            var sale = await GetSaleByIdAsync(saleID);
-            var product = await _productService.GetProductByIdAsync(productID);
+            var sale = await GetSaleByIdAsync(saleID, userid);
+            var product = await _productService.GetProductByIdAsync(productID, userid);
 
             var line = sale.Lines.FirstOrDefault(x => x.ProductID == productID);
             if(line == null) 
             {
                 sale.Lines.Add(new SaleLine 
                 {
+                    UserId = userid,
                     SaleID = saleID,
                     Sale = sale,
                     ProductID = productID,
@@ -67,15 +70,17 @@ namespace PointOfSalesWebApplication.Services
                 line.Quantity += qty;
             }
 
-            await CalculateTotalCostAsync(saleID);
+            await CalculateTotalCostAsync(saleID, userid);
             await _context.SaveChangesAsync();
         }
-        public async Task RemoveProductAsync(int saleID, int productID, int qty = 1) 
+        public async Task RemoveProductAsync(int saleID, int productID, string userid, int qty = 1) 
         {
-            var sale = await GetSaleByIdAsync(saleID);
-            var product = await _productService.GetProductByIdAsync(productID);
+            var sale = await GetSaleByIdAsync(saleID, userid);
+            var product = await _productService.GetProductByIdAsync(productID, userid);
 
-            var line = sale.Lines.FirstOrDefault(x => x.ProductID == productID);
+            var line = sale.Lines
+                .Where(x => x.UserId == userid)
+                .FirstOrDefault(x => x.ProductID == productID);
 
             if(line == null) return;
 
@@ -88,28 +93,30 @@ namespace PointOfSalesWebApplication.Services
                 line.Quantity -= qty;
             }
 
-            await CalculateTotalCostAsync(saleID);
+            await CalculateTotalCostAsync(saleID, userid);
             await _context.SaveChangesAsync();
         }
-        public async Task UpdateQuantityAsync(int saleID, int productID, int qty) 
+        public async Task UpdateQuantityAsync(int saleID, int productID, int qty, string userid) 
         {
-            var sale = await GetSaleByIdAsync(saleID);
-            var product = await _productService.GetProductByIdAsync(productID);
+            var sale = await GetSaleByIdAsync(saleID, userid);
+            var product = await _productService.GetProductByIdAsync(productID, userid);
 
-            var line = sale.Lines.FirstOrDefault(x => x.ProductID == productID);
+            var line = sale.Lines
+                .Where(x => x.UserId == userid)
+                .FirstOrDefault(x => x.ProductID == productID);
 
-            if(line != null) {
+            if (line != null) {
                 line.Quantity += qty;
                 await _context.SaveChangesAsync();
             }
 
-            await CalculateTotalCostAsync(saleID);
+            await CalculateTotalCostAsync(saleID, userid);
         }
 
-        public async Task SetClientAsync(int saleID, int clientID) 
+        public async Task SetClientAsync(int saleID, int clientID, string userid) 
         {
-            var sale = await GetSaleByIdAsync(saleID);
-            var client = await _clientService.GetClientByIdAsync(clientID);
+            var sale = await GetSaleByIdAsync(saleID, userid);
+            var client = await _clientService.GetClientByIdAsync(clientID, userid);
 
             sale.ClientID = clientID;
             sale.Client = client;
@@ -117,29 +124,29 @@ namespace PointOfSalesWebApplication.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task CalculateTotalCostAsync(int saleID) 
+        public async Task CalculateTotalCostAsync(int saleID, string userid) 
         {
-            var sale = await GetSaleByIdAsync(saleID);
+            var sale = await GetSaleByIdAsync(saleID, userid);
             sale.TotalCost = Math.Round(sale.Lines.Sum(x => x.TotalPrice), 2);
         }
 
-        public async Task FinalizeSaleAsync(int saleID, int clientID) 
+        public async Task FinalizeSaleAsync(int saleID, int clientID, string userid)
         {
-            var sale = await GetSaleByIdAsync(saleID);
-            var client = await _clientService.GetClientByIdAsync(clientID);
+            var sale = await GetSaleByIdAsync(saleID, userid);
+            var client = await _clientService.GetClientByIdAsync(clientID, userid);
             sale.Status = SaleStatus.Paid;
             
             if(client != null) 
             {
                 Console.WriteLine("LE NOM" + sale.Client.Name);
-                await SetClientAsync(saleID, clientID);
-                await _clientService.AddSaleAsync(clientID, sale);
+                await SetClientAsync(saleID, clientID, userid);
+                await _clientService.AddSaleAsync(clientID, sale, userid);
             }
 
             await _context.SaveChangesAsync();
         }
 
-        private async Task<int> GenerateSaleIdAsync()
+        private async Task<int> GenerateSaleIdAsync(string userid)
         {
             int id;
             bool exists;
@@ -147,20 +154,22 @@ namespace PointOfSalesWebApplication.Services
             do
             {
                 id = _rand.Next(1000, 10000); // 1000–9999
-                exists = await _context.Clients.AnyAsync(c => c.ID == id);
+                exists = await _context.Clients
+                    .Where(c => c.UserId == userid)
+                    .AnyAsync(c => c.ID == id);
             }
             while (exists);
 
             return id;
         }
-        private string GenerateSaleName(int id) 
+        private string GenerateSaleName(int id)
         {
             return $"SO{DateTime.Today:yyMM}{id}";
         }
 
-        public async Task CancelSaleAsync(int saleID) 
+        public async Task CancelSaleAsync(int saleID, string userid) 
         {
-            var sale = await GetSaleByIdAsync(saleID);
+            var sale = await GetSaleByIdAsync(saleID, userid);
             sale.Status = SaleStatus.Canceled;
             await _context.SaveChangesAsync();
         }

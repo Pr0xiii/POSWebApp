@@ -14,37 +14,40 @@ namespace PointOfSalesWebApplication.Services
             _context = productContext;
         }
 
-        public async Task DeleteProductAsync(int id)
+        public async Task DeleteProductAsync(int id, string userid)
         {
-            Product? product = await GetProductByIdAsync(id);
+            Product? product = await GetProductByIdAsync(id, userid);
             if (product != null)
                 _context.Products.Remove(product);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Product>> GetAllProductsAsync()
-        {
-            return await _context.Products.ToListAsync();
-        }
-
-        public async Task<List<Product>> GetAllProductsToSoldAsync() 
+        public async Task<List<Product>> GetAllProductsAsync(string userid)
         {
             return await _context.Products
-                            .Where(p => p.CanBeSold)
+                .Where(p => p.UserId == userid)
+                .ToListAsync();
+        }
+
+        public async Task<List<Product>> GetAllProductsToSoldAsync(string userid) 
+        {
+            return await _context.Products
+                            .Where(p => p.CanBeSold && p.UserId == userid)
                             .ToListAsync();
         }
 
-        public async Task<Product?> GetProductByIdAsync(int? id)
+        public async Task<Product?> GetProductByIdAsync(int? id, string userid)
         {
             if (id == null) return null;
 
             return await _context.Products
+                .Where(p => p.UserId == userid)
                 .FirstOrDefaultAsync(p => p.ID == id);
         }
 
-        public async Task UpdateProductAsync(Product product)
+        public async Task UpdateProductAsync(Product product, string userid)
         {
-            var existing = await GetProductByIdAsync(product.ID);
+            var existing = await GetProductByIdAsync(product.ID, userid);
             if (existing != null)
             {
                 existing.Name = product.Name;
@@ -60,7 +63,7 @@ namespace PointOfSalesWebApplication.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<int> GetRandomIDAsync()
+        public async Task<int> GetRandomIDAsync(string userid)
         {
             int id;
             bool exists;
@@ -68,7 +71,9 @@ namespace PointOfSalesWebApplication.Services
             do
             {
                 id = _rand.Next(1000, 10000); // 1000–9999
-                exists = await _context.Clients.AnyAsync(c => c.ID == id);
+                exists = await _context.Clients
+                    .Where(c => c.UserId == userid)
+                    .AnyAsync(c => c.ID == id);
             }
             while (exists);
 

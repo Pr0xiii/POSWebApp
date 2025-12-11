@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PointOfSalesWebApplication.Data;
 using PointOfSalesWebApplication.Services;
@@ -5,13 +6,19 @@ using PointOfSalesWebApplication.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<ISaleService, SaleService>();
 
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityDb")));
+
 builder.Services.AddDbContext<PosContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("PosContext")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PosDb")));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -28,6 +35,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

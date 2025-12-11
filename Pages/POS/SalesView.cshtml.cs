@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using PointOfSalesWebApplication.Data;
 using PointOfSalesWebApplication.Models;
 using PointOfSalesWebApplication.Services;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using PointOfSalesWebApplication.Data;
-using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace PointOfSalesWebApplication.Pages.POS
 {
@@ -56,7 +57,12 @@ namespace PointOfSalesWebApplication.Pages.POS
 
         public async Task<IActionResult> OnGetAsync() 
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+                return RedirectToPage("/Account/Login");
+
             IQueryable<Sale> _sales = _context.Sales
+                .Where(s => s.UserId == userId)
                 .Include(s => s.Client);
 
             if (!string.IsNullOrWhiteSpace(SearchString))
@@ -113,9 +119,9 @@ namespace PointOfSalesWebApplication.Pages.POS
             return Page();
         }
 
-        public async Task<IActionResult> OnPostCancelSale(int saleID) 
+        public async Task<IActionResult> OnPostCancelSale(int saleID, string userid) 
         {
-            await _saleService.CancelSaleAsync(saleID);
+            await _saleService.CancelSaleAsync(saleID, userid);
             return RedirectToPage();
         }
     }

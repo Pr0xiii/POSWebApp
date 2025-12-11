@@ -22,5 +22,7 @@ namespace PointOfSalesWebApplication.Models
         public string? PhoneNumber { get; set; }
 
         public List<Sale> Sales { get; set; } = new();
+
+        public string UserId { get; set; }
     }
 }
