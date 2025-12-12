@@ -21,6 +21,56 @@ body {
   margin-bottom: 60px;
 }
 
+div.presentation 
+{
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid lightblue;
+  border-radius: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  justify-content: space-around;
+  align-items: center;
+}
+p.description 
+{
+  width: 40%;
+  text-align: start;
+}
+img.my-image
+{
+  border-radius: 50%;
+}
+div.personnal-links 
+{
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+}
+.personnal-links .link {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-size: 32px;
+}
+
+.github 
+{
+  color: black;
+}
+.github:hover 
+{
+  color: black;
+  opacity: 75%;
+}
+
 /* Menu */
 div.text-center 
 {

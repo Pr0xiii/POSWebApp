@@ -1,35 +1,60 @@
 ﻿@page
 @model IndexModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Boboo</h1>
-    <div class="container-apps">
-        <div class="row" id="apps-row">
-            <div class="col app-item" draggable="true" data-id="3">
-                <a class="btn app-item-btn" asp-page="POS/SalesView">
-                    <span class="bi bi-shop"></span> POS
-                </a>
-            </div>
-            <div class="col app-item" draggable="true" data-id="1">
-                <a class="btn app-item-btn" asp-page="Products/products">
-                    <span class="bi bi-box-fill"></span> Products
-                </a>
-            </div>
-            <div class="col app-item" draggable="true" data-id="2">
-                <a class="btn app-item-btn" asp-page="Clients/Clients">
-                    <span class="bi bi-person-video"></span> Clients
-                </a>
-            </div>
-            <div class="col app-item" draggable="true" data-id="3">
-                <a class="btn app-item-btn" asp-page="Privacy">
-                    <span class="bi bi-gear"></span> Settings
-                </a>
-            </div>
+    <h1 class="display-4">Beboo</h1>
+    @if(SignInManager.IsSignedIn(User)) 
+    {
+      <div class="container-apps">
+          <div class="row" id="apps-row">
+              <div class="col app-item" draggable="true" data-id="3">
+                  <a class="btn app-item-btn" asp-page="POS/SalesView">
+                      <span class="bi bi-shop"></span> POS
+                  </a>
+              </div>
+              <div class="col app-item" draggable="true" data-id="1">
+                  <a class="btn app-item-btn" asp-page="Products/products">
+                      <span class="bi bi-box-fill"></span> Products
+                  </a>
+              </div>
+              <div class="col app-item" draggable="true" data-id="2">
+                  <a class="btn app-item-btn" asp-page="Clients/Clients">
+                      <span class="bi bi-person-video"></span> Clients
+                  </a>
+              </div>
+              <div class="col app-item" draggable="true" data-id="3">
+                  <a class="btn app-item-btn" asp-page="Privacy">
+                      <span class="bi bi-gear"></span> Settings
+                  </a>
+              </div>
+          </div>
+      </div>
+    }
+    else 
+    {
+      <h3>What is Beboo and who made it ?</h3>
+      <div class="presentation">
+        <p class="description">Beboo is a portfolio application influenced by the Odoo application. First based for a POS application,
+        this app might update with news applications in the future as I like to test and implement new things through my learning of ASP.NET.
+        But who am I ? Hi ! Nice to meet you, I'm Jolan Dessoy. A belgian C# and .NET developer. Alongside my studies in Application Development, 
+        I am strengthening my skills in object-oriented programming, graphical user interface design, and software architecture.
+        My background has also led me to work with Python and HTML/CSS/JavaScript, allowing me to tackle a wide variety of projects.</p>
+        <img class="my-image" src="https://media.licdn.com/dms/image/v2/D4E35AQGef4qPeJlfoA/profile-framedphoto-shrink_200_200/B4EZqxgbmZGUAY-/0/1763914660530?e=1766131200&v=beta&t=17IpVUXPzooQbZ_XGJ6aniNpy7znSDDuQ8Yx7DYHRz4" alt="me, Jolan Dessoy">
+      </div>
+      <div class="presonnal-footer">
+        <h4>Check out my profiles</h4>
+        <div class="personnal-links">
+          <a class="link linkedin" href="https://www.linkedin.com/in/dessoy-jolan-dev/"><i class="link bi bi-linkedin"></i></a>
+          <a class="link github" href="https://github.com/Pr0xiii"><i class="bi bi-github"></i></a>
         </div>
-    </div>
+      </div>
+    }
 </div>
 
 <script>
