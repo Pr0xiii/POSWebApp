@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('serviceConnectorResourceGroupName')]/providers/Microsoft.Web/sites/PointOfSalesWebApplication20251215183129/providers/Microsoft.ServiceLinker/linkers/ConnectionStringsIdentityDb_A04BB03527",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/pointofsaleswebapplicationdbserver1/databases/PointOfSalesWebApplication_dbIdentiy",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:IdentityDb",
+      "dynamicId": null
+    },
+    "mssql2": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('serviceConnectorResourceGroupName')]/providers/Microsoft.Web/sites/PointOfSalesWebApplication20251215183129/providers/Microsoft.ServiceLinker/linkers/ConnectionStringsPosDb_6DBCFBC88A",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/pointofsaleswebapplicationdbserver1/databases/PointOfSalesWebApplication_dbPos",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:PosDb",
+      "dynamicId": null
+    }
+  }
+}

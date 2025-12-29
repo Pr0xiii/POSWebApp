@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Ce fichier est utilisé par le processus de publication/package de votre projet web. Vous pouvez personnaliser le comportement de ce processus
+en modifiant ce fichier MSBuild. Pour en savoir plus à ce sujet, visitez https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <History>True|2025-12-15T18:48:59.0055929Z||;True|2025-12-15T19:45:56.6591639+01:00||;True|2025-12-15T19:40:11.3253795+01:00||;True|2025-12-15T19:34:04.3019190+01:00||;True|2025-12-15T19:28:01.5805081+01:00||;True|2025-12-15T19:13:01.2000773+01:00||;True|2025-12-15T19:07:17.6178049+01:00||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="IdentityDb">
+      <Value>Server=tcp:pointofsaleswebapplicationdbserver1.database.windows.net%3bAuthentication=Active Directory Default%3bDatabase=PointOfSalesWebApplication_dbIdentiy%3b</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="PosDb">
+      <Value>Server=tcp:pointofsaleswebapplicationdbserver1.database.windows.net%3bAuthentication=Active Directory Default%3bDatabase=PointOfSalesWebApplication_dbPos%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

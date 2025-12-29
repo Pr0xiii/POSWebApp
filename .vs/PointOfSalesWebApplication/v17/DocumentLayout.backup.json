@@ -3,32 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|c:\\users\\jolan\\onedrive\\documents\\pointofsaleswebapp\\poswebapp\\pages\\pos\\sale.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|solutionrelative:pages\\pos\\sale.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|c:\\users\\jolan\\onedrive\\documents\\pointofsaleswebapp\\poswebapp\\pages\\taskmanager\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|solutionrelative:pages\\taskmanager\\dashboard.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|c:\\users\\jolan\\onedrive\\documents\\pointofsaleswebapp\\poswebapp\\models\\dto\\saledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|solutionrelative:models\\dto\\saledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|c:\\users\\jolan\\onedrive\\documents\\pointofsaleswebapp\\poswebapp\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|solutionrelative:wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|c:\\users\\jolan\\onedrive\\documents\\pointofsaleswebapp\\poswebapp\\models\\dto\\salelinedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|solutionrelative:models\\dto\\salelinedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|c:\\users\\jolan\\onedrive\\documents\\pointofsaleswebapp\\poswebapp\\pages\\taskmanager\\dashboard.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|solutionrelative:pages\\taskmanager\\dashboard.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|c:\\users\\jolan\\onedrive\\documents\\pointofsaleswebapp\\poswebapp\\services\\taskmanager\\taskservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|solutionrelative:services\\taskmanager\\taskservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|c:\\users\\jolan\\onedrive\\documents\\pointofsaleswebapp\\poswebapp\\services\\pos\\saleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|solutionrelative:services\\pos\\saleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|c:\\users\\jolan\\onedrive\\documents\\pointofsaleswebapp\\poswebapp\\models\\saleline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|solutionrelative:models\\saleline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|c:\\users\\jolan\\onedrive\\documents\\pointofsaleswebapp\\poswebapp\\pages\\pos\\sale.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|solutionrelative:pages\\pos\\sale.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|c:\\users\\jolan\\onedrive\\documents\\pointofsaleswebapp\\poswebapp\\services\\pos\\isaleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|solutionrelative:services\\pos\\isaleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|c:\\users\\jolan\\onedrive\\documents\\pointofsaleswebapp\\poswebapp\\services\\taskmanager\\itaskservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A38E9C4C-3848-4134-BD32-B352186D1263}|PointOfSalesWebApplication.csproj|solutionrelative:services\\taskmanager\\itaskservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -37,98 +33,85 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "DockedWidth": 268,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "SaleLine.cs",
-              "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Models\\SaleLine.cs",
-              "RelativeDocumentMoniker": "Models\\SaleLine.cs",
-              "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Models\\SaleLine.cs",
-              "RelativeToolTip": "Models\\SaleLine.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T20:56:13.996Z",
+              "DocumentIndex": 1,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "wwwroot\\css\\site.css",
+              "ViewState": "AgIAACABAAAAAAAAAAAAADgBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-12-29T19:24:12.493Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "SaleLineDto.cs",
-              "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Models\\DTO\\SaleLineDto.cs",
-              "RelativeDocumentMoniker": "Models\\DTO\\SaleLineDto.cs",
-              "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Models\\DTO\\SaleLineDto.cs",
-              "RelativeToolTip": "Models\\DTO\\SaleLineDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAmAAAAAAAAAA==",
+              "Title": "Dashboard.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\TaskManager\\Dashboard.cshtml.cs",
+              "RelativeDocumentMoniker": "Pages\\TaskManager\\Dashboard.cshtml.cs",
+              "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\TaskManager\\Dashboard.cshtml.cs",
+              "RelativeToolTip": "Pages\\TaskManager\\Dashboard.cshtml.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAgwCgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T20:56:05.871Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SaleDto.cs",
-              "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Models\\DTO\\SaleDto.cs",
-              "RelativeDocumentMoniker": "Models\\DTO\\SaleDto.cs",
-              "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Models\\DTO\\SaleDto.cs",
-              "RelativeToolTip": "Models\\DTO\\SaleDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T20:54:41.073Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ISaleService.cs",
-              "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Services\\POS\\ISaleService.cs",
-              "RelativeDocumentMoniker": "Services\\POS\\ISaleService.cs",
-              "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Services\\POS\\ISaleService.cs",
-              "RelativeToolTip": "Services\\POS\\ISaleService.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAA4wBIAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T16:48:16.381Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "SaleService.cs",
-              "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Services\\POS\\SaleService.cs",
-              "RelativeDocumentMoniker": "Services\\POS\\SaleService.cs",
-              "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Services\\POS\\SaleService.cs",
-              "RelativeToolTip": "Services\\POS\\SaleService.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAwDQAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T14:54:05.16Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Sale.cshtml",
-              "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\POS\\Sale.cshtml",
-              "RelativeDocumentMoniker": "Pages\\POS\\Sale.cshtml",
-              "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\POS\\Sale.cshtml",
-              "RelativeToolTip": "Pages\\POS\\Sale.cshtml",
-              "ViewState": "AgIAADkAAAAAAAAAAAAIwEEAAABTAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-11T14:53:15.394Z",
+              "WhenOpened": "2025-12-29T19:21:57.698Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "Sale.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\POS\\Sale.cshtml.cs",
-              "RelativeDocumentMoniker": "Pages\\POS\\Sale.cshtml.cs",
-              "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\POS\\Sale.cshtml.cs",
-              "RelativeToolTip": "Pages\\POS\\Sale.cshtml.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABQAAAAWAAAAAAAAAA==",
+              "Title": "ITaskService.cs",
+              "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Services\\TaskManager\\ITaskService.cs",
+              "RelativeDocumentMoniker": "Services\\TaskManager\\ITaskService.cs",
+              "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Services\\TaskManager\\ITaskService.cs",
+              "RelativeToolTip": "Services\\TaskManager\\ITaskService.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAcwAYAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-11T14:34:20.477Z",
+              "WhenOpened": "2025-12-28T15:52:58.018Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Dashboard.cshtml",
+              "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\TaskManager\\Dashboard.cshtml",
+              "RelativeDocumentMoniker": "Pages\\TaskManager\\Dashboard.cshtml",
+              "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Pages\\TaskManager\\Dashboard.cshtml",
+              "RelativeToolTip": "Pages\\TaskManager\\Dashboard.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEIAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-28T15:54:14.648Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TaskService.cs",
+              "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Services\\TaskManager\\TaskService.cs",
+              "RelativeDocumentMoniker": "Services\\TaskManager\\TaskService.cs",
+              "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Services\\TaskManager\\TaskService.cs",
+              "RelativeToolTip": "Services\\TaskManager\\TaskService.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T15:53:10.534Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SaleService.cs",
+              "DocumentMoniker": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Services\\POS\\SaleService.cs",
+              "RelativeDocumentMoniker": "Services\\POS\\SaleService.cs",
+              "ToolTip": "C:\\Users\\jolan\\OneDrive\\Documents\\PointOfSalesWebApp\\POSWebApp\\Services\\POS\\SaleService.cs",
+              "RelativeToolTip": "Services\\POS\\SaleService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T15:57:09.499Z",
               "EditorCaption": ""
             }
           ]

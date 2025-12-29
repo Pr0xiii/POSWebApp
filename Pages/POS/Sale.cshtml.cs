@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using PointOfSalesWebApplication.Models;
 using PointOfSalesWebApplication.Models.DTO;
 using PointOfSalesWebApplication.Services;
-using System.Linq;
-using System.Security.Claims;
 
 namespace PointOfSalesWebApplication.Pages.POS
 {

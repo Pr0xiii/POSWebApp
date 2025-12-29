@@ -14,7 +14,7 @@ namespace PointOfSalesWebApplication.Services
 
         Task SetClientAsync(Sale sale, int? clientID, string userid);
 
-        Task CalculateTotalCostAsync(Sale sale, string userid);
+        void CalculateTotalCost(Sale sale, string userid);
 
         Task FinalizeSaleFromDtoAsync(SaleDto sale, string userid);
 

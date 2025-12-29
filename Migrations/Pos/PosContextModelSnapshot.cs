@@ -17,7 +17,7 @@ namespace PointOfSalesWebApplication.Migrations.Pos
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.21")
+                .HasAnnotation("ProductVersion", "8.0.22")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -153,6 +153,76 @@ namespace PointOfSalesWebApplication.Migrations.Pos
                     b.ToTable("SaleLines");
                 });
 
+            modelBuilder.Entity("PointOfSalesWebApplication.Models.Section", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserID", "Order")
+                        .IsUnique();
+
+                    b.ToTable("Sections");
+                });
+
+            modelBuilder.Entity("PointOfSalesWebApplication.Models.TaskModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PriorityLevel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SectionID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("SectionID");
+
+                    b.HasIndex("UserID", "SectionID", "Order")
+                        .IsUnique();
+
+                    b.ToTable("Tasks");
+                });
+
             modelBuilder.Entity("PointOfSalesWebApplication.Models.Sale", b =>
                 {
                     b.HasOne("PointOfSalesWebApplication.Models.Person", "Client")
@@ -181,6 +251,17 @@ namespace PointOfSalesWebApplication.Migrations.Pos
                     b.Navigation("Sale");
                 });
 
+            modelBuilder.Entity("PointOfSalesWebApplication.Models.TaskModel", b =>
+                {
+                    b.HasOne("PointOfSalesWebApplication.Models.Section", "Section")
+                        .WithMany("Tasks")
+                        .HasForeignKey("SectionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Section");
+                });
+
             modelBuilder.Entity("PointOfSalesWebApplication.Models.Person", b =>
                 {
                     b.Navigation("Sales");
@@ -189,6 +270,11 @@ namespace PointOfSalesWebApplication.Migrations.Pos
             modelBuilder.Entity("PointOfSalesWebApplication.Models.Sale", b =>
                 {
                     b.Navigation("Lines");
+                });
+
+            modelBuilder.Entity("PointOfSalesWebApplication.Models.Section", b =>
+                {
+                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

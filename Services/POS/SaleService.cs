@@ -96,7 +96,7 @@ namespace PointOfSalesWebApplication.Services
             sale.Client = client;
         }
 
-        public async Task CalculateTotalCostAsync(Sale sale, string userid) 
+        public void CalculateTotalCost(Sale sale, string userid) 
         {
             sale.TotalCost = Math.Round(sale.Lines.Sum(x => x.TotalPrice), 2);
         }

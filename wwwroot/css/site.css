@@ -284,3 +284,102 @@ div.footer
   flex-flow: row;
   justify-content: space-between;
 }
+
+/*TaskManager*/
+.dashboard-btns {
+    display: flex;
+    padding: 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid white;
+}
+
+.kanban-board {
+    display: flex;
+    overflow-x: auto;
+    padding: 20px 0;
+}
+
+.kanban-column {
+    min-width: 300px;
+    max-width: 300px;
+    margin: 0 15px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.kanban-column h4 {
+    margin-bottom: 20px;
+    padding: 10px;
+    text-align: center;
+    background-color: #3D454D;
+    border-radius: 5px;
+}
+
+.task-card {
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.task-card {
+    cursor: move;
+}
+
+.task-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.task-card .task-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid black;
+}
+
+.task-card .task-card-footer .task-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.task-card .task-actions .task-card-btn {
+    margin-left: 5px;
+}
+
+.add-task-form {
+    margin-top: 20px;
+}
+
+.dragging {
+    opacity: 0.5;
+}
+
+.task-priority {
+    display: inline-block;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    margin-bottom: 5px;
+}
+
+.priority-Low {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.priority-Medium {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.priority-High {
+    background-color: #f8d7da;
+    color: #721c24;
+}

@@ -13,6 +13,8 @@ namespace PointOfSalesWebApplication.Data
         public DbSet<Person> Clients { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<SaleLine> SaleLines { get; set; }
+        public DbSet<Section> Sections { get; set; }
+        public DbSet<TaskModel> Tasks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,6 +39,20 @@ namespace PointOfSalesWebApplication.Data
                 .HasOne(l => l.Product)
                 .WithMany()
                 .HasForeignKey(l => l.ProductID);
+
+            modelBuilder.Entity<Section>()
+                .HasMany(s => s.Tasks)
+                .WithOne(t => t.Section)
+                .HasForeignKey(t => t.SectionID)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Section>()
+                .HasIndex(s => new { s.UserID, s.Order })
+                .IsUnique();
+
+            modelBuilder.Entity<TaskModel>()
+                .HasIndex(t => new { t.UserID, t.SectionID, t.Order })
+                .IsUnique();
         }
     }
 }
